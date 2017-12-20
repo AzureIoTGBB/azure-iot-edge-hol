@@ -6,6 +6,8 @@ Created and maintained by the Microsoft Azure IoT Global Black Belts
 
 This hands-on lab demonstrates setting up, configuring, and developing modules for [Azure IoT Edge](https://azure.microsoft.com/en-us/services/iot-edge/).  The intent of these labs is not to cover exhaustively every IoT Edge topic, but rather cover a scenario that allows the student to learn and understand the basics of IoT Edge, develop modules and Edge ASA jobs, and perform Edge configuration, all in a pseudo-realistic use case.
 
+These labs were originally developed to be delivered by the IoT GBBs to customers, however, they are available for any customers or partners to leverage to play or learn.  Over time, they will evolve past their original use to incorporate other use cases.
+
 In this workshop you will:
 
 * Setup and configure a simple IoT Device, based on an Arduino Uno connected to a DHT22 temperature sensor, to simply (and dumbly) send temperture over the serial port every 3 seconds
@@ -15,13 +17,17 @@ In this workshop you will:
 * create an IoT Edge module that reads the "alert" message from ASA and sends a Direct Method call to the IoT Device to light up an "alert" LED
 
 The labs are broken up into the following modules:
-* __**Module 1**__ - Prerequisites and IoT Edge setup
-* __**Module 2**__ - Setup and program the "IoT Device"
-* __**Module 3**__ - Develop "Formatter" module
-* __**Module 4**__ - Azure Stream Analytics Edge job
-* __**Module 5**__ - Develop "Alert" module
 
+* [Module 1](module1) - Prerequisites and IoT Edge setup
+* [Module 2](module2) - Setup and program the "IoT Device"
+* [Module 3](module3) - Develop "Formatter" module
+* [Module 4](module4) - Azure Stream Analytics Edge job
+* [Module 5](module5) - Develop "Alert" module
 
+## Hardware
 
+For this lab, for simplicity of setup, we are using our Windows 10 desktops (running Docker and Linux containers) as the Edge device.  For the Arduino device, we leverage an Arduino Uno (you can feel free to use any device that can send data over serial). For the labs we deliver directly to customers, we leverge the following kits:
+* Arduino Uno R3 “kit”:   [kit](https://www.adafruit.com/product/193)   ~$35
+* DHT22 temp/humidity sensor:  [kit](https://www.adafruit.com/product/385)   ~10
 
-
+__**Let's get started!!**__
