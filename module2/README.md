@@ -6,9 +6,7 @@ Created and maintained by the Microsoft Azure IoT Global Black Belts
 
 For this step of the lab, we are going to create our "IoT Device".  For the labs, we wanted to leverage a physical device to make the scenario slightly more realistic (and fun!).
 
-__**NOTE:  Because of easier logistics of setup given a large number of students, we are leveraging Windows desktops for our 'Edge devices' in this lab. If we were doing this on a physical Linux device (like a Raspberr Pi), we would develop an Edge "module" to talk to the USB port containing our Arduino device and just map that port into the docker container running that module via the --devices paramter.  However, there is a current limitation in Docker for Windows that doesn't let us do that on a Windows host.  So we use an intermediate dumb IoT "device" that reads the serial/USB port and connects and sends that data to IoT Edge.**__
-
-*** todo:  link to Docker issue above
+__**NOTE:  Because of easier logistics of setup given a large number of students, we are leveraging Windows desktops for our 'Edge devices' in this lab. If we were doing this on a physical Linux device (like a Raspberr Pi), we would develop an Edge "module" to talk to the USB port containing our Arduino device and just map that port into the docker container running that module via the --devices paramter.  However, there is a current limitation in Docker for Windows that doesn't let us do that on a Windows host.  So we use an intermediate dumb IoT "device" that reads the serial/USB port and connects and sends that data to IoT Edge.**__.  The Docker issue is documented [here](https://github.com/docker/for-win/issues/1018).  Feel free to go weigh in on the importance of this issue if you think it will affect you.
 
 Ok, let's get started...
 
