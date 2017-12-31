@@ -1,4 +1,4 @@
-# Azure IoT Edge Hands On Labs - Module 1
+# Azure IoT Edge Hands On Labs - Module 2
 
 Created and maintained by the Microsoft Azure IoT Global Black Belts
 
@@ -99,13 +99,16 @@ pip install pyserial
     * click on "+Add Device" to add a new device.  Give the device a name and click "create"
     * capture (in notepad) the Connection String - Primary Key for your IoT device, we will need it in a moment
 
-4. We need to fill in a couple of pieces of information into our python script.  
+4. We need to fill in a couple of pieces of information into our python script.
+
+Run VS Code and click on File - Open Folder.  Open the c:\azure-iot-edge-hol folder.  Under the /module2 folder, open the readserial.py script.
 
 * In the line of code below
 
 ```Python
-ser = serial.Serial('serial port', 9600)
+ser = serial.Serial('<serial port>', 9600)
 ```
+
 replace "serial port" with the serial port your arduino device is plugged into (e.g "COM3")
 
 * In the line below
@@ -117,4 +120,62 @@ put your connection string in the quotes.  Onto the end of your connection strin
 
 Ok, we now have our device ready, so let's get it connected to the Hub
 
-*** todo:  deploy edge hub and see our device data flow through
+## Start IoT Edge, connect device, and see data flowing through
+
+In this section, we will get the device created above connected to IoT Edge and see the data flowing though it.
+
+* in the Azure portal, navigate to your IoT Hub, click on IoT Edge Devices (preview) on the left nav, click on your IoT Edge device
+* click on "Set Modules" in the top menu bar.  Later, we will add a customer module here, but for now, we are just going to set a route to route all data to IoT Hub, so click "Next"
+* on the 'routes' page, make sure the following route is shown, if not, enter it.
+
+```json
+{
+    "routes": {
+        "route":{"FROM /* to $upstream"}
+    }
+}
+```
+click 'next', and click 'finish'
+
+### confirm IoT Edge
+
+The running instance of IoT Edge should have gotten a notification that it's configuration has changed.
+
+If you run 'docker ps' again, you should see a new module/container called "edgeHub' running.  This is the local IoT Hub-like engine that will store and forward our messages and act like a local IoTHub to our downstream devices
+
+if you run 'docker logs -f edgeHub', you should see that the Hub has successfully created a route called "route' and is up and listening on port 8883. (the TLS port for MQTT locally)
+
+The edge device is now ready for our device to connect.
+
+### Monitor our IoT Hub
+
+In VS Code, click on the 'Extensions' tab on the left nav.  Search for an install the "Azure IoT Toolkit" by Microsoft.  Once installed (reload VS Code, if necessary), click back on the folder view and you should see a new section called "IOT HUB DEVICES".  Hover over it and you should see three dots "...".  Click on that and click "Set IoT Hub Connection String".  You should see an Edit box appear for you to enter a connection string.  Go back to notepad where we copied the connection strings earlier, and copy/paste the "IoT Hub level" (the 'iothubowner') connection string from earlier into the VS Code edit box and hit ok.  
+
+After a few seconds, a list of IoT Device should appear in that section.  Once it does, find the IoT Device (not the edge device) that is tied to your python script.  Right click on it and select "Start monitoring D2C messages".  This should open an output window in VS Code and show that it is listening for messages.
+
+### start the local IoT device
+
+open a new command prompt and CD to the module2 folder.  Run the following command to 'run' our IoT device
+
+```
+python -u readserial.py
+```
+
+You should see debug output indicating that the device was connected to the "IoT Hub" (in actuality it is connected to the edge device) and see it starting reading and sending humidity and temperature messages.
+
+### Observe D2C messages
+
+In the VS Code output window opened earlier, you should see messages flowing thought the hub.  These messages have come from the device, to the local Edge Hub and been forwarded to the cloud based IoT Hub in a store-and-forward fashion (i.e. transparent gateway).
+
+In VS Code, right click on your IoT Device and click on "Stop Monitoring D2C Messages".
+
+in the command prompt runing your python script, hit CTRL-C to stop the script.
+
+
+
+todo:  test toggling the LED
+
+
+## Summary 
+
+The output of module is still the raw output of the device (in CSV format).  We've shown that we can connect a device through the edgeHub to IoT Hub in the cloud.  In the next labs, we will add modules to re-format the data as JSON, as well as aggregate the data and identify and take local action on "high temperature" alerts.
