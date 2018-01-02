@@ -23,6 +23,14 @@ def receive_message_callback(message, counter):
 def device_method_callback(method_name, payload, user_context):
     print("received DM {%s}, payload: %s" % (method_name, payload))
 
+    if(str(method_name) == 'ON'):
+        ser.write('ON\n')
+        ser.flush()
+
+    if(str(method_name) == 'OFF'):
+        ser.write('OFF\n')
+        ser.flush()
+
     device_method_return_value = DeviceMethodReturnValue()
     device_method_return_value.response = "{ \"Response\": \"This is the response from the device\" }"
     device_method_return_value.status = 200
