@@ -23,11 +23,13 @@ def receive_message_callback(message, counter):
 def device_method_callback(method_name, payload, user_context):
     print("received DM {%s}, payload: %s" % (method_name, payload))
 
-    if(str(method_name) == 'ON'):
+    if("ON" in str(method_name)):
+        print("ON method called")
         ser.write('ON\n')
         ser.flush()
 
-    if(str(method_name) == 'OFF'):
+    if("OFF" in str(method_name)):
+        print("OFF method called")
         ser.write('OFF\n')
         ser.flush()
 
