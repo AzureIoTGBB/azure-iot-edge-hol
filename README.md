@@ -16,7 +16,7 @@ These labs were originally developed to be delivered in-person by the Azure IoT 
 
 In this workshop you will:
 
-* Setup and configure a simple IoT Device, based on an Arduino Uno connected to a DHT22 temperature sensor, to simply (and dumbly) send temperture over the serial port every 3 seconds
+* Setup and configure a simple IoT Device, based on an Arduino Uno connected to a DHT22 temperature sensor, to simply (and dumbly) send temperature over the serial port every 3 seconds
 * create an "IoT Device" that reads the data from the serial port and connects to IoT Hub __**through**__ IoT Edge
 * create an IoT Edge module that read the simple CSV temp/humidity data from the device and converts to JSON and passes the message along
 * create an Azure Stream Analytics module that a) aggregates the "every 3 seconds" data to a 30 second frequency to send to IoT Hub in the cloud and b) looks for temperatures above a certain threshold.  Then a threshold violation occurs, the module will drop an "alert" message on Edge
