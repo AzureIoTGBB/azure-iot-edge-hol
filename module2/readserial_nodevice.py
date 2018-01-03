@@ -13,7 +13,7 @@ max_temp = 90.0
 min_humidity = 50.0
 max_humidity = 60.0
 valley_to_peak_samples = 30
-
+ 
 #change this -- don't forget the "GatewayHostName" param at the end
 connection_string = "<connection string here>"
 
