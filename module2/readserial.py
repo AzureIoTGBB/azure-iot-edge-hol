@@ -9,7 +9,7 @@ i = 0
 
 #change this to your specifics...  (e.g. "COM3")
 ser = serial.Serial('<serial port>', 9600)
-
+ 
 #change this -- don't forget the "GatewayHostName" param at the end
 connection_string = "<connection string here>"
 
