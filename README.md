@@ -30,6 +30,10 @@ The labs are broken up into the following modules:
 * [Module 4](module4) - Azure Stream Analytics Edge job
 * [Module 5](module5) - Develop "Alert" module
 
+Below is a conceptual flow for the labs to help visualize what is taking place and how the data is flowing through the system  ("T/H" is short for "temperature and humidity)
+
+![conceptual drawing](/images/IoT-Edge-Labs-Conceptual-Design.png)
+
 ## Hardware
 
 For this lab, for simplicity of setup, we are using our Windows 10 desktops (running Docker and Linux containers) as the Edge device.  For the Arduino device, we leverage an Arduino Uno (you can feel free to use any device that can send data over serial). For the labs we deliver directly to customers, we leverge the following kits:
