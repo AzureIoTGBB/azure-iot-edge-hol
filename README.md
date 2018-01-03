@@ -12,7 +12,7 @@ Created and maintained by the Microsoft Azure IoT Global Black Belts
 
 This hands-on lab demonstrates setting up, configuring, and developing modules for [Azure IoT Edge](https://azure.microsoft.com/en-us/services/iot-edge/).  The intent of these labs is not to cover exhaustively every IoT Edge topic, but rather cover a scenario that allows the student to learn and understand the basics of IoT Edge, develop modules and Edge ASA jobs, and perform Edge configuration, all in a pseudo-realistic use case.
 
-These labs were originally developed to be delivered by the IoT GBBs to customers, however, they are available for any customers or partners to leverage to play or learn.  Over time, they will evolve past their original use to incorporate other use cases.
+These labs were originally developed to be delivered in-person by the Azure IoT GBBs to customers, however, they are available for any customers or partners to leverage, to play, or to learn.  Over time, they will evolve past this original use to incorporate other use cases.
 
 In this workshop you will:
 

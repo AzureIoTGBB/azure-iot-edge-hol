@@ -2,6 +2,15 @@
 
 Created and maintained by the Microsoft Azure IoT Global Black Belts
 
+## Clone the lab materials locally
+
+The first step is to clone the lab materials locally (you'll need a few components of module2 locally to run).
+
+```cmd
+cd \
+git clone https://github.com/azureiotgbb/azure-iot-edge-hol
+```
+
 ## Create an IoT Hub and an "Edge Device"
 
 For the lab exercises, we need an IoT Hub created in an Azure Subscription for which you have administrative access.
@@ -37,7 +46,7 @@ __** Note - for in-person deliveries by the IoT GBBs, some of this may have been
 * [.NET Core SDK](https://www.microsoft.com/net/core#windowscmd)
 * [Arduino IDE](http://www.arduino.cc/)
 * [Open SSL](https://sourceforge.net/projects/openssl/)
-    * for the lab instructions later, create a c:\utils folder and unzip the downloaded zip to c:\utils\ 
+    * for the lab instructions later, create a c:\utils folder and unzip the downloaded OpenSSL zip to c:\utils\ 
 * clone the Azure IoT C sdk.  We need this to get the certificate generation scripts.  Also, while Edge is in public preview, we need the 'modules-preview' branch of the SDK.  Run the following command from the root of the "C" drive
     * git clone -b modules-preview http://github.com/azure/azure-iot-sdk-c
 
@@ -47,17 +56,19 @@ __** Note - for in-person deliveries by the IoT GBBs, some of this may have been
 There are a few final steps needed to set up our specific lab scenario.  We are using our Edge device "as a gateway*, so we need a) our IoT Device to be able to find it and b) to have valid certificates so the IoT Device will open a successful TLS connection to the Edge
 
 * Add a host file entry for our Edge device -- this will let out "IoT Device" resolve and find our Edge gateway.  To do this:
-    * Open a command prompt __**as an Administrator**__
-    * open (with notepad) c:\windows\system32\drives\etc\hosts
+    * Open a command prompt __*as an Administrator*__
+    * open (with notepad) c:\windows\system32\drivers\etc\hosts
+        * notepad.exe c:\windows\system32\drivers\etc\hosts
     * add a row at the bottom with the following
         * 127.0.0.1  mygateway.local
     * save and close the file
+    * confirm you can successfully "ping mygateway.local"
 
 * During the public preview, Edge only works with RSA certs.  Edit the following PowerShell script   C:\azure-iot-sdk-c\tools\CACertificates\ca-certs.ps1
     * on line 26, change the $useECC from $true to $false
     * save and close the script
-* Open a PowerShell session __**as an Adminstrator**__
-        * make an \edge folder   (mkdir c:\edge)
+* Open a PowerShell session __*as an Adminstrator*__
+    * make an \edge folder   (mkdir c:\edge)
     * cd to the \edge folder (cd \edge)
     * Run "Set-ExecutionPolicy Unrestricted"
     * Run the following commands to set up our use of OpenSSL

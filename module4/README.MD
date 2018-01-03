@@ -31,74 +31,59 @@ To create the ASA job:
 After a few moments, your ASA job will be created.  Click "Go to Resource" to navigate to the portal blade for your job
 
 * click on the "inputs" box and click "Add"
-* give your input a name (e.g. "inputFromHub") and leave the other settings as default.  Note that source is 'Edge Hub'
+* give your input the name "inputFromHub" and leave the other settings as default.  Note that source is 'Edge Hub'
 * click Create to create your input
 
 Navigate back to the blade for your ASA job and click on the "outputs" box to add outputs
 
 * Our job is going to leverage two different outputs, one for the aggregated temperature data and one for the alerts
     * click Add to create a new output
-    * give your output a unique name (e.g. asaAggregatedTemp) for the aggregated temperature data
+    * name your output asaAggregatedTemp for the aggregated temperature data
     * leave the remaining settings at default and click "Create"
-    * repeat the above three steps for the alert output (e.g. asaAlertTemp)
+    * repeat the above three steps for the alert output (name it asaAlertTemp)
 
 The next step is to specify the query.  Click on the "query" box to open the query editor.  Copy/paste in this query:
 
 ```SQL
-WITH
-    StreamData
-    AS (
-        SELECT *
-        FROM <input>
-        WHERE temperature is not null
-    ),
-    TemperatureCTE
-    AS (
-        SELECT
-            deviceID,
-            temperature,
-            CASE
-            WHEN cast(temperature as bigint) >= 80 THEN 'HIGH'
-                ELSE 'LOW'
-            END as tempState,
-            System.TimeStamp as eventdatetime
-       FROM StreamData
-       WHERE TRY_CAST(temperature AS bigint) IS NOT NULL
-    )
-
+-- get aggregated temp/humidity every XX seconds
 SELECT
     deviceID,
-    AVG (humidity) AS [AverageHumidity],
-    AVG (temperature) AS [AverageTumidity],
-    System.TimeStamp as eventdatetime
-INTO
-    [<asaAggregateTemp Output name>]
-FROM [StreamData]
-WHERE
-    [humidity] IS NOT NULL
+    AVG(temperature) as AvgTemp,
+    AVG(humidity) as AvgHumidity,
+    System.Timestamp as eventdatetime
+INTO asaAggregatedData
+FROM inputFromHub
+WHERE temperature IS NOT NULL
 GROUP BY
     deviceID,
-    SlidingWindow (s, 20)
+    TumblingWindow(s, 30)
 
+-- determine if we are making a 'transition' above or below 80 degress
 SELECT *
-INTO   <asa Alert Temp output name>
-FROM   TemperatureCTE
+INTO   asaAlertTemp
+FROM   
+(
+    SELECT
+        deviceID,
+        temperature,
+        CASE
+        WHEN CAST(temperature as bigint) >= 80 THEN 'HIGH'
+            ELSE 'LOW'
+        END as tempState,
+        System.Timestamp as eventdatetime
+    FROM inputFromHub
+    WHERE 
+            temperature IS NOT NULL
+) x
 WHERE
     LAG(tempState, 1) OVER (PARTITION BY deviceID LIMIT DURATION(minute, 10)) <> tempState
 
 ```
 
-make sure you replace:
-* \<input name> with the name of our ASA input
-* \<asaAggregateTemp Output Name> with the name of the output you created for the aggregate data
-* \<asa Alert Temp output name> with the name of the output you created for the temperature alerts
+If we break down the query above, it really has two main parts:
 
-If we break down the query above, it really has four main parts:
-
-*  the first Common Table Expression (subquery) just filters the data to make sure we have data with a valid temperature value
-* the second CTE checks to see if the temperature is over 80, where is it considered "HIGH", otherwise it is "LOW"
-* the third query takes the AVG of humidity and temp over a sliding (aka back-to-back) window of 20 seconds and sends this output to the aggregated temperature data output
-* the fourth query uses the SQL LAG function to look at, and compare the "current" TempState (i.e HIGH or LOW) and the TempState of the previous row.  That's what LAG does.  If the values are different, then we have either transitioned from LOW to HIGH, or HIGH to LOW, so we generate an Alert message to our alert output
+* the first query takes the AVG of humidity and temp over a tumbling (aka back-to-back) window of 30 seconds and sends this output to the aggregated temperature data output
+* the second query uses the SQL LAG function to look at, and compare the "current" TempState (i.e HIGH or LOW) and the TempState of the previous row.  That's what LAG does.  If the values are different, then we have either transitioned from LOW to HIGH, or HIGH to LOW, so we generate an Alert message to our alert output
 
 * Click Save to save your query and close the editor
 
@@ -126,9 +111,18 @@ Now we are ready to deploy our ASA job to our Edge device.
 * click "next" to configure our routes
 * on the 'specify routes' screen, enter the following routes
 
+```json
+{
+  "routes": {
+    "toFormatterFromDevices": "FROM /messages/* WHERE NOT IS_DEFINED($connectionModuleId) INTO BrokeredEndpoint(\"/modules/formattermodule/inputs/input1\")",
+    "toASAJob": "FROM /messages/modules/formattermodule/outputs/output1 INTO BrokeredEndpoint(\"/modules/<asa-job-name>/inputs/inputFromHub\")",
+    "asaAlertsToIoTHub": "FROM /messages/modules/<asa-job-name>/outputs/asaAlertTemp INTO $upstream",
+    "asaAggrToIoTHub": "FROM /messages/modules/<asa-job-name>/outputs/asaAggregatedData INTO $upstream"
+  }
+}
 ```
-todo:  routes including ASA job
-```
+
+* replace \<asa-job-name> above with the name of your ASA module (e.g. edgeASAJob)
 
 click 'next' and 'finish' to publish our routes.
 
@@ -136,7 +130,7 @@ click 'next' and 'finish' to publish our routes.
 
 re-start the python script that represents our device.  Use "docker ps" and "docker logs -f \<module name>" to see the various debug messages from the modules
 
-If it is not still running, restart the D2C message monitoring within VS Code.  You should see the aggregated temperature data come through every 20 seconds or so.  If you hold your finger on the temperature sensor on the Arduinio device enough to make it go above (and then release and let it fall below) 80 degrees, you should also see the Alert messages comes through to IoT Hub.
+If it is not still running, restart the D2C message monitoring within VS Code.  You should see the aggregated temperature data come through every 30 seconds or so.  If you hold your finger on the temperature sensor on the Arduinio device enough to make it go above (and then release and let it fall below) 80 degrees, you should also see the Alert messages come through to IoT Hub.
 
 ## Summary
 

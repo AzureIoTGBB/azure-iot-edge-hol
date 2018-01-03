@@ -135,6 +135,8 @@ In this section, we will get the device created above connected to IoT Edge and 
 ```
 click 'next', and click 'finish'
 
+* $upstream is a special route destination that means "send to IoT Hub in the cloud".  So this route takes all messages (/*) and sends to the cloud.  This lets us, at thsi stage in the lab, confirm that Edge is working end-to-end before we move onto subsequent modules.
+
 ### confirm IoT Edge
 
 The running instance of IoT Edge should have gotten a notification that it's configuration has changed.
@@ -167,12 +169,21 @@ In the VS Code output window opened earlier, you should see messages flowing tho
 
 In VS Code, right click on your IoT Device and click on "Stop Monitoring D2C Messages".
 
+
+### test Direct Method call
+
+Finally, we also want to test making a Direct Method call to our IoT Device.  Later, this functionality will allow us to respond to "high temperature" alerts by taking action on the device.  For now, we just want to test the connectivity to make sure that edgeHub is routing Direct Method calls propery to our device.  To test:
+
+* in VS Code, in the "IOT HUB DEVICES" section, right click on your IoT Device and click "Invoke Direct Method".
+* in the edit box at the top for the method to call type "ON" (without the quotes) and hit \<enter>
+* in the edit box for the payload, just hit \<enter>>, as we don't need a payload for our method
+
+You should see debug output in the python script that is our IoT Device indicating that a DM call was made, and after a few seconds, the onboard LED on the device should light up.  This is a stand-in for whatever action we would want to take on our real device in the event of an "emergency" high temp alert.
+
+* repeat the process above, sending "OFF" as the command to toggle the LED back off.
+
+
 in the command prompt runing your python script, hit CTRL-C to stop the script.
-
-
-
-todo:  test toggling the LED
-
 
 ## Summary 
 

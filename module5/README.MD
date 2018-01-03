@@ -27,16 +27,40 @@ dotnet new aziotedgemodule -n AlertModule
 
 Now lets modify the sample code to implement our Alert module.  
 
+* in addition to the "Device Client" that other modules use, the Alerts sample also needs to use the "Service Client" to send Direct Method calls.  To add the service client, open up the alertModule.csproj file in VS Code and add the following line in the \<ItemGroup> section of the file and save the changes.
+
+```
+    <PackageReference Include="Microsoft.Azure.Devices" Version="1.5.0-preview-001" />
+```
+
+* In the Integrated Terminal window, run the command 'dotnet restore' to download and install the new Nuget package
+
 * in AlertModule.cs, above the "Program" class, add the C# class that will represent our message we want to publish to the Hub
 
 ```CSharp
     class Alert
     {
-        public string deviceID;
-        public string tempState;
-        public float temperature;
+        public string deviceID { get; set; }
+        public string tempState { get; set; }
+        public float temperature { get; set; }
+        public DateTime eventdatetime { get; set; }
     }
 ```
+
+* __**Temporary workaround**__:   As of the public preview timeframe, there is a bug in the authentication logic of the edgeHub that doesn't allow us to send Direct Method calls using the module-specific connection string that is passed into the module in the EdgeHubConnectionString environment variable.  Therefore, we temporarily need to leverage the "iothubowner" level connection string when we create the ServiceClient from which we'll make the Direct Method call.  This bug will be fixed before general availability of the product.  To implement this temporary fix:
+    * at the top of the "Program" class (just below the line that reads "static int counter"), add the following code
+
+    ```CSharp
+    static ServiceClient ioTServiceClient;
+    static string serviceConnStr = "<iothubowner connection string>";
+    ```
+
+    where \<iothubowner connection string> is the IoT Hub level connection string you copied earlier
+    * In the Init function, right below the call to DeviceClient.CreateFromConnectionString, add this call
+
+    ```CSharp
+    ioTServiceClient = ServiceClient.CreateFromConnectionString(serviceConnStr);
+    ```
 
 * the balance of our work will be in the PipeMessage function.  the top part of the function, which gets the "Device Client" instance that is stored in Context and makes sure it's valid, and that opens the message and gets it's content as a string, is boiler-plate and is fine for our purposes.  The work we will be doing is inside the "if" block below (which checks to make sure we don't have an empty message):
 
@@ -49,11 +73,34 @@ Now lets modify the sample code to implement our Alert module.
 * replace the code within the if block above, with the below code
 
 ```CSharp
-                // todo:  alert module code goes here
+string command = "";
+
+Console.WriteLine($"Received message, body: [{messageString}]");
+
+var alertMsg = JsonConvert.DeserializeObject<Alert[]>(messageString)[0];
+
+if(alertMsg.tempState == "HIGH")
+    command = "ON";
+else
+    command = "OFF";
+
+Console.WriteLine($"Invoking Direct Method to {alertMsg.deviceID} for tempState={alertMsg.tempState}");
+
+try {
+    var result = await ioTServiceClient.InvokeDeviceMethodAsync(alertMsg.deviceID, new CloudToDeviceMethod(command));
+    Console.WriteLine($"Result status: {result.Status}");
+}
+catch(Exception e)
+{
+    Console.WriteLine($"Exception caught while invoking DM: {e.ToString()}");
+}
 ```
 
 * the code above does the following things
-    * todo....
+    * Receives the "Alert" message passed to use from Stream Analytics on the Edge
+    * parses the JSON message into an Alert object (technically, ASA passes us a JSON array of only one element, so we take the 'first' element)
+    * pulls out the device ID of the device that caused the alert, and figures out, based on the 'tempstate' (HIGH or LOW) whether to send the "ON" or "OFF" command to the device
+    * using the ServiceClient object, makes the Direct Method call.
 
 * in VS Code, on the code tree, right click on the AlertModule.csproj file and click "Build IoT Edge Module".  This task builds the module, and then copies the executable and it's dependencies into a folder from which we can build the docker image to deploy it in the next step.
 
@@ -103,11 +150,15 @@ In this section, we will get the module created above deployed and view the resu
 * back on the "Set Modules" blade, click "next"
 * on the "specify routes" blade, replace the default with the following:
 
-```
+```json
 {
-    "routes": {
-        todo....
-    }
+  "routes": {
+    "toFormatterFromDevices": "FROM /messages/* WHERE NOT IS_DEFINED($connectionModuleId) INTO BrokeredEndpoint(\"/modules/formattermodule/inputs/input1\")",
+    "toASAJob": "FROM /messages/modules/formattermodule/outputs/output1 INTO BrokeredEndpoint(\"/modules/edgeASAJob/inputs/inputFromHub\")",
+    "toAlerts": "FROM /messages/modules/edgeASAJob/outputs/asaAlertTemp INTO BrokeredEndpoint(\"/modules/alertmodule/inputs/input1\")",
+    "asaToIoTHub": "FROM /messages/modules/edgeASAJob/outputs/asaAggregatedData INTO $upstream",
+    "asaAlertsToIoTHub": "FROM /messages/modules/edgeASAJob/outputs/asaAlertTemp INTO $upstream"
+  }
 }
 ```
 * replace "\<module name>" above (in two places) with the name of your module, case-sensitive, that you used above
@@ -119,13 +170,18 @@ In this section, we will get the module created above deployed and view the resu
 
 ### Test our module
 
-After a few seconds, the module should be downloaded and deployed to our IoT Edge runtime.  You can confirm this by opening a command prompt and typing "docker ps".  You should see all of the previous modules running, the edgeAgent, edgeHub, the 
-ASA module and our new AlertModule.  You can view the logs of any of them by running "docker logs -f \<module name>" to make sure they are working.
+After a few seconds, the module should be downloaded and deployed to our IoT Edge runtime.  You can confirm this by opening a command prompt and typing "docker ps".  You should see all of the previous modules running, the edgeAgent, edgeHub, the formatterModule, the ASA module and our new AlertModule.  You can view the logs of any of them by running "docker logs -f \<module name>" to make sure they are working.
 
 As in the previous module, start the python script that represents our IoT Device to get messages flowing into the system. 
 
 Once that is running, you can use "docker logs -f alertModule" (or whatever you named your module) to see its logs.  You won't see anything yet.
 
-todo:  hold finger on the temp sensor to drive temp above 80, blah blah blah
+Now hold your finger on the DHT22 temperature sensor to drive temp above 80.  Once it crosses above 80, you should see the Alert come through the docker logs for the alertModule, the DM call come through in the debug output of the python IoT Device, and the onboard LED on the Arduino, after a few seconds, light up.  If you release the temperature sensor and the temperature drops back below 80, you should see the process repeat to turn the LED back off.
 
-In VS Code, under the "IOT HUB DEVICES" section, like before, you should be able to click on your __**IoT Edge device**__ (note, this is different than before), and choose "Start Monitoring D2C Messages" and see our new JSON formatted messages flowing.
+In VS Code, under the "IOT HUB DEVICES" section, like before, you should be able to right click on your __**IoT Edge device**__ (note, this is different than before), and choose "Start Monitoring D2C Messages" and see the alert messages flow through to IoT Hub as well if you repeat the process.
+
+Congratulations - you now have:
+* data coming from a physical IoT device flowing into IoT Edge
+* an Edge module that intercepts and reformats that data
+* Streaming Analytics on the edge that pre-aggregates the data as well as generates "local" alerts when a dangerous high temperature situation occurs
+* a module that takes the 'high temp' alerts and uses them to invoke an action on the IoT Device in question.
