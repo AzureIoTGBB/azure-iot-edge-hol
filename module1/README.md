@@ -84,6 +84,7 @@ There are a few final steps needed to set up our specific lab scenario.  We are 
     * make sure you are still in the c:\edge folder in your PowerShell session
     * run "New-CACertsCertChain" to generate our test certs  (in production, you would use a real CA for this...)
     * in the azure portal, navigate back to your IoT Hub and click on "Certificates" on the left-nav and click "+Add".  Give your certificate a name, and upload the c:\edge\RootCA.cer" file
+    * now we need to generate certs for our specific gateway to do so, run "New-CACertsEdgeDevice myGateway" command in Powershell.  This will generate the gateway specific certs (MyGateway.*)
 
 ## Install IoT Edge configuration tool
 
