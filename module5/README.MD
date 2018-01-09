@@ -35,7 +35,7 @@ Now lets modify the sample code to implement our Alert module.
 
 * In the Integrated Terminal window, run the command 'dotnet restore' to download and install the new Nuget package
 
-* in AlertModule.cs, above the "Program" class, add the C# class that will represent our message we want to publish to the Hub
+* in Program.cs, above the "Program" class, add the C# class that will represent our message we want to publish to the Hub
 
 ```CSharp
     class Alert
