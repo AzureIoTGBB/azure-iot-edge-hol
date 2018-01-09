@@ -47,6 +47,7 @@ __** Note - for in-person deliveries by the IoT GBBs, some of this may have been
 * [Arduino IDE](http://www.arduino.cc/)
 * [Open SSL](https://sourceforge.net/projects/openssl/)
     * for the lab instructions later, create a c:\utils folder and unzip the downloaded OpenSSL zip to c:\utils\ 
+    (so you should a folder structure that looks like this->    c:\utils\OpenSSL)
 * clone the Azure IoT C sdk.  We need this to get the certificate generation scripts.  Also, while Edge is in public preview, we need the 'CACertToolEdge' branch of the SDK.  Run the following command from the root of the "C" drive
     * git clone -b CACertToolEdge http://github.com/azure/azure-iot-sdk-c
 
@@ -74,7 +75,7 @@ There are a few final steps needed to set up our specific lab scenario.  We are 
     * import the ca-certs script with the following command (note the leading dot)
         * . \azure-iot-sdk-c\tools\CACertificates\ca-certs.ps1
     * Run Test-CACertsPrerequisites and make sure it returns the result "SUCCESS"
-        * the Test-CACertsprequisites call fails, it means that the local machine already contains Azure IoT test certs (possibly from a previously deployment.  If that happens, you need to follow Step 5 - Cleanup of the instructions [here](https://github.com/Azure/azure-iot-sdk-c/blob/modules-preview/tools/CACertificates/CACertificateOverview.md) before moving on)
+        * the Test-CACertsprequisites call fails, it means that the local machine already contains Azure IoT test certs (possibly from a previously deployment.  If that happens, you need to follow Step 5 - Cleanup of the instructions [here](https://github.com/Azure/azure-iot-sdk-c/blob/CACertToolEdge/tools/CACertificates/CACertificateOverview.md) before moving on)
     * DO NOT CLOSE THE POWERSHELL session yet
         * (if you do, just reopen it and re-add the environment variables above)
 
@@ -84,7 +85,7 @@ There are a few final steps needed to set up our specific lab scenario.  We are 
     * in the azure portal, navigate back to your IoT Hub and click on "Certificates" on the left-nav and click "+Add".  Give your certificate a name, and upload the c:\edge\RootCA.cer" file
     * now we need to generate certs for our specific gateway to do so, run "New-CACertsEdgeDevice myGateway" command in Powershell.  This will generate the gateway specific certs (MyGateway.*).  When prompted to enter a password during the signing process, just enter "1234".
 
-    NOTE:  if anything goes wrong during this process and you need to repeat it, you'll likely need to clean up the existing certs before generating new ones.  To do so, follow Step 5 - Cleanup, of the process outlined [here](https://github.com/Azure/azure-iot-sdk-c/blob/modules-preview/tools/CACertificates/CACertificateOverview.md)
+    NOTE:  if anything goes wrong during this process and you need to repeat it, you'll likely need to clean up the existing certs before generating new ones.  To do so, follow Step 5 - Cleanup, of the process outlined [here](https://github.com/Azure/azure-iot-sdk-c/blob/CACertToolEdge/tools/CACertificates/CACertificateOverview.md)
 
 ## Install IoT Edge configuration tool
 
