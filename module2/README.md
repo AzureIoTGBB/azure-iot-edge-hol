@@ -129,7 +129,7 @@ In this section, we will get the device created above connected to IoT Edge and 
 ```json
 {
     "routes": {
-        "route":{"FROM /* to $upstream"}
+        "route":{"FROM /* INTO $upstream"}
     }
 }
 ```
@@ -165,7 +165,7 @@ You should see debug output indicating that the device was connected to the "IoT
 
 ### Observe D2C messages
 
-In the VS Code output window opened earlier, you should see messages flowing thought the hub.  These messages have come from the device, to the local Edge Hub and been forwarded to the cloud based IoT Hub in a store-and-forward fashion (i.e. transparent gateway).
+In the VS Code output window opened earlier, you should see messages flowing thought the hub.  These messages have come from the device, to the local Edge Hub and been forwarded to the cloud based IoT Hub in a store-and-forward fashion (i.e. transparent gateway).  Please note that there may be some delay before you see data in the monitor.
 
 In VS Code, right click on your IoT Device and click on "Stop Monitoring D2C Messages".
 
