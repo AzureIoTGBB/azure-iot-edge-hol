@@ -45,7 +45,7 @@ This diagram may seem complicated, so let’s deconstruct it a bit.
 3. The black wire is the ground wire; it runs to the right most pin on the DHT sensor.
 4. The red wire provides power; it runs to the left most pin on the DHT sensor.
 5. The green wire is the signal wire it runs to the pin adjacent to the power lead.
-6. The resistor between pins 1 and 2 of the DHT sensor is called a "pull up" resistor.  It essentially just ensures that, during times we are not actively reading the sensor, the pin is "pulled up" to 5V and not electrically "bouncing around" freely.  This helps cut down on communication errors between the device and sensor.  __**Note that resistors are not directional, so it doesn't matter which direction you plug the resistor into the breadboard**__
+6. The resistor between pins 1 and 2 of the DHT sensor is called a "pull up" resistor.  It essentially just ensures that, during times we are not actively reading the sensor, the pin is "pulled up" to 5V and not electrically "bouncing around" freely.  This helps cut down on communication errors between the device and sensor.  __**Note that resistors are not directional, so it doesn't matter which direction you plug the resistor into the breadboard.   Also note that your resistor with your DHT kit likely won't match the color codes on the screenshot (it's probably brown-black-orange).  Either way, use the resistor that came with the kit.**__
 
 ### Develop sketch to read sensor and send across serial
 
@@ -58,7 +58,8 @@ In this section, we will load and execute the arduino "code" to talk to the DHT 
 3. In order to use the sensor we first need to download a library for simplifying communication with the device.  In the Arduino IDE select “Manage Libraries” from the Sketch -> Include Library menu.
 
 ![library install](/images/m2bArduino8.png)
-4. From the library manager window search for “DHT”,  select the second option “DHT sensor library by Adafruit” library, and click “Install”.
+
+4. From the library manager window search for “DHT”,  select the second option “DHT sensor library by Adafruit” library, and click “Install”.  Repeat this process to install the "Adafruit Unified Sensor" library.
 
 ![library install](/images/m2bArduino9.png)
 
