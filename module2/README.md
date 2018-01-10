@@ -24,7 +24,7 @@ Ok, let's get started...
 
 ![ArduinoIDE](/images/m2bArduino5.png)
 
-4. Now that the device is setup in the IDE, you can open and deploy a sample sketch.  From the File -> Examples -> Basic menu open the “Blink” sketch.
+4. Now that the device is setup in the IDE, you can open and deploy a sample sketch.  From the File -> Examples -> 01.Basics menu open the “Blink” sketch.
 
 ![ArduinoIDE](/images/m2bArduino6.png)
 
@@ -53,7 +53,7 @@ In this section, we will load and execute the arduino "code" to talk to the DHT 
 
 1. Plug your device back in to your workstation via USB.
 
-2. Open the dhtSensorSketch.ino sketch in the Arduino IDE
+2. Open the dhtSensorSketch.ino sketch in the Arduino IDE from the module2\dhtSensorSketch folder
 
 3. In order to use the sensor we first need to download a library for simplifying communication with the device.  In the Arduino IDE select “Manage Libraries” from the Sketch -> Include Library menu.
 
@@ -134,9 +134,10 @@ In this section, we will get the device created above connected to IoT Edge and 
     }
 }
 ```
-click 'next', and click 'finish'
 
-* $upstream is a special route destination that means "send to IoT Hub in the cloud".  So this route takes all messages (/*) and sends to the cloud.  This lets us, at thsi stage in the lab, confirm that Edge is working end-to-end before we move onto subsequent modules.
+click 'Next', and click 'Submit'
+
+* $upstream is a special route destination that means "send to IoT Hub in the cloud".  So this route takes all messages (/*) and sends to the cloud.  This lets us, at this stage in the lab, confirm that Edge is working end-to-end before we move onto subsequent modules.
 
 ### confirm IoT Edge
 
@@ -150,7 +151,7 @@ The edge device is now ready for our device to connect.
 
 ### Monitor our IoT Hub
 
-In VS Code, click on the 'Extensions' tab on the left nav.  Search for an install the "Azure IoT Toolkit" by Microsoft.  Once installed (reload VS Code, if necessary), click back on the folder view and you should see a new section called "IOT HUB DEVICES".  Hover over it and you should see three dots "...".  Click on that and click "Set IoT Hub Connection String".  You should see an Edit box appear for you to enter a connection string.  Go back to notepad where we copied the connection strings earlier, and copy/paste the "IoT Hub level" (the 'iothubowner') connection string from earlier into the VS Code edit box and hit ok.  
+In VS Code, click on the 'Extensions' tab on the left nav.  Search for an install the "Azure IoT Toolkit" by Microsoft.  Once installed (reload VS Code, if necessary), click back on the folder view and you should see a new section called "IOT HUB DEVICES".  Hover over it and you should see three dots "...".  Click on that and click "Set IoT Hub Connection String".  You should see an Edit box appear for you to enter a connection string.  Go back to notepad where we copied the connection strings earlier, and copy/paste the "IoT Hub level" (the 'iothubowner') connection string from earlier into the VS Code edit box and hit ok.
 
 After a few seconds, a list of IoT Device should appear in that section.  Once it does, find the IoT Device (not the edge device) that is tied to your python script.  Right click on it and select "Start monitoring D2C messages".  This should open an output window in VS Code and show that it is listening for messages.
 
