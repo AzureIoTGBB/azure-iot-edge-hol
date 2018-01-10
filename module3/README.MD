@@ -27,7 +27,7 @@ dotnet new -i Microsoft.Azure.IoT.Edge.Module
 ```
 dotnet new aziotedgemodule -n FormatterModule
 ```
-* Open the FormatterModule.cs file to view the code.  Review the boiler-plate code to understand what it does.  A few notes:
+* Open the Program.cs file to view the code.  Review the boiler-plate code to understand what it does.  A few notes:
     * The main funtion retrieves the 'connection string' for the module from an environment variable passed into it's docker container by the edge Agent when it creates the container.  This connection string is for the module to connect to the local edge Hub instance.  Main called "Init" to initiate the connection to the local Hub and set up any callbacks.
     * The edge Agent also passes in the necessary cert for a connection to the edge Hub that the module must 'trust' before it can connect (for TLS).  This cert is retreived and installed by the InstallCerts method
     * the Init method creates an instance of the Device Client class (which is the exact same one you would use to connect to IoT Hub in the cloud) and connects using the connection string passed in from the egde Agent.  The Init method then sets any callbacks that will be raised whenever a message is routed to this module (on a named "input") or when module-twin changes happen
@@ -37,7 +37,7 @@ dotnet new aziotedgemodule -n FormatterModule
 
 Now lets modify the sample code to implement our Formatter module.  
 
-* in FormatterModule.cs, above the "Program" class, add the C# class that will represent our message we want to publish to the Hub
+* in Program.cs, above the "Program" class, add the C# class that will represent our message we want to publish to the Hub
 
 ```CSharp
     class Telemetry
