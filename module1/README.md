@@ -21,7 +21,7 @@ While you are in the Azure portal, let's go ahead and grab a couple of important
 
 In the IoT Hub blade of the Azure portal for your created IoT Hub, do the following:
 * In the left-hand nav bar, click on "Shared Access Policies" and then click on "iothubowner", copy the "Connection String - Primary Key" string and paste it into Notepad.  We'll need it later.  This is your "IoTHub Owner Connection string".  Close the "Shared Access Policy" blade
-* In the left-hand nav bar, click on "IoT Edge Devices (preview)"
+* In the left-hand nav bar, click on "IoT Edge (preview)"
 * click "Add Edge Device"
 * Give your IoT Edge Device a name and click "Create"
 * once created, find the IoT Edge Device connection string (primary key) and copy/paste this into Notepad.  This is the "IoT Edge Device" connection string
