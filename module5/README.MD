@@ -87,8 +87,7 @@ using Microsoft.Azure.Devices;
 
     ```
 
-
-The rest work we will be doing is inside the "if" block below (which checks to make sure we don't have an empty message):
+The rest of the work we will be doing is inside the "if" block below (which checks to make sure we don't have an empty message):
 
 ```CSharp
     if (!string.IsNullOrEmpty(messageString))
