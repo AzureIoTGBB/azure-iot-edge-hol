@@ -106,7 +106,7 @@ To setup and configure our IoT Edge device, run the following command  (if you u
 iotedgectl setup --connection-string "<Iot Edge Device connection string>" --edge-hostname "mygateway.local" --device-ca-cert-file c:\edge\myGateway-public.pem --device-ca-chain-cert-file c:\edge\myGateway-all.pem --device-ca-private-key-file c:\edge\myGateway-private.pem --owner-ca-cert-file c:\edge\RootCA.pem
     
 ```
-Replace *IoT Edge Device connection string* with the Edge device connection string you captured above
+Replace *IoT Edge Device connection string* with the Edge device connection string you captured above.  If it prompts you for a password for the edge private cert, use '12345'   (NOTE: different from the password above!)
 
 We're ready now to start our IoT Edge device
 
