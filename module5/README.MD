@@ -35,6 +35,13 @@ Now lets modify the sample code to implement our Alert module.
 
 * In the Integrated Terminal window, run the command 'dotnet restore' to download and install the new Nuget package
 
+* in the "using" section above the Program class, add the two following 'using' statements
+
+```CSharp
+using Newtonsoft.Json;
+using Microsoft.Azure.Devices;
+```
+
 * in Program.cs, above the "Program" class, add the C# class that will represent our message we want to publish to the Hub
 
 ```CSharp
@@ -56,13 +63,32 @@ Now lets modify the sample code to implement our Alert module.
     ```
 
     where \<iothubowner connection string> is the IoT Hub level connection string you copied earlier
-    * In the Init function, right below the call to DeviceClient.CreateFromConnectionString, add this call
+    * In the Init function, make the two following changes:
+
+        * in the line that creates the MqttTransportSettings object, add Microsoft.Azure.Devices.Client in front of TransportType.Mqtt_Tcp_Only, as shown here
+
+        ```CSharp
+            MqttTransportSettings mqttSetting = new MqttTransportSettings(Microsoft.Azure.Devices.Client.TransportType.Mqtt_Tcp_Only);
+
+        ```
+    
+        * right below the call to DeviceClient.CreateFromConnectionString, add this call
+
+        ```CSharp
+        ioTServiceClient = ServiceClient.CreateFromConnectionString(serviceConnStr);
+        ```
+
+* the balance of our work will be in the PipeMessage function.  the top part of the function, which gets the "Device Client" instance that is stored in Context and makes sure it's valid, and that opens the message and gets it's content as a string, is boiler-plate and is fine for our purposes.  
+
+* In the definition of the PipeMessage function, we need to add Microsoft.Azure.Devices.Client to the definition of the message parameter, like this:
 
     ```CSharp
-    ioTServiceClient = ServiceClient.CreateFromConnectionString(serviceConnStr);
+    static async Task<MessageResponse> PipeMessage(Microsoft.Azure.Devices.Client.Message message, object userContext)
+
     ```
 
-* the balance of our work will be in the PipeMessage function.  the top part of the function, which gets the "Device Client" instance that is stored in Context and makes sure it's valid, and that opens the message and gets it's content as a string, is boiler-plate and is fine for our purposes.  The work we will be doing is inside the "if" block below (which checks to make sure we don't have an empty message):
+
+The rest work we will be doing is inside the "if" block below (which checks to make sure we don't have an empty message):
 
 ```CSharp
     if (!string.IsNullOrEmpty(messageString))
