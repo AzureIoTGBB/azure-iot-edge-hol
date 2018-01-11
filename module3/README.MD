@@ -12,6 +12,10 @@ We are primarily using C# and .NET Core for this lab because it is the most comp
 
 ## Developing our module
 
+### Install the Azure IoT Edge extention
+
+In VS Code, click on the "extensions" tab and search for "Azure IoT Edge".  You should see an extension provided by Microsoft.  Install it, and afterwards, reload VS Code
+
 ### Creating the module "skeleton"
 
 We will use VS Code to develop our module.  
@@ -37,7 +41,13 @@ dotnet new aziotedgemodule -n FormatterModule
 
 Now lets modify the sample code to implement our Formatter module.  
 
-* in Program.cs, above the "Program" class, add the C# class that will represent our message we want to publish to the Hub
+* in Program.cs, in the "using" section above the Program class, add the two following 'using' statements
+
+```CSharp
+using Newtonsoft.Json;
+```
+
+* above the "Program" class, add the C# class that will represent our message we want to publish to the Hub
 
 ```CSharp
     class Telemetry
