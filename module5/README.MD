@@ -153,7 +153,7 @@ the first step is to log into the docker hub.  Docker hub will let you download 
 * From the Integrated Terminal in VS Code, enter the following command:
 
 ```
-docker login -u <username> -P <password>
+docker login -u <username> -p <password>
 ```
 
 where "username" and "password" are the credentials you used earlier when you created your docker hub account.
