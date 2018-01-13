@@ -72,7 +72,7 @@ There are a few final steps needed to set up our specific lab scenario.  We are 
     * Run the following commands to set up our use of OpenSSL
         * $ENV:PATH += ";c:\utils\OpenSSL\bin"
         * $ENV:OPENSSL_CONF="c:\utils\OpenSSL\bin\openssl.cnf"
-    * import the ca-certs script with the following command (note the leading dot)
+    * import the ca-certs script with the following command (note the leading dot and space. This is call dot sourcing)
         * . \azure-iot-sdk-c\tools\CACertificates\ca-certs.ps1
     * Run Test-CACertsPrerequisites and make sure it returns the result "SUCCESS"
         * the Test-CACertsprequisites call fails, it means that the local machine already contains Azure IoT test certs (possibly from a previously deployment.  If that happens, you need to follow Step 5 - Cleanup of the instructions [here](https://github.com/Azure/azure-iot-sdk-c/blob/CACertToolEdge/tools/CACertificates/CACertificateOverview.md) before moving on)
