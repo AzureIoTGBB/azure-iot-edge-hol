@@ -21,16 +21,16 @@ While you are in the Azure portal, let's go ahead and grab a couple of important
 
 In the IoT Hub blade of the Azure portal for your created IoT Hub, do the following:
 * In the left-hand nav bar, click on "Shared Access Policies" and then click on "iothubowner", copy the "Connection String - Primary Key" string and paste it into Notepad.  We'll need it later.  This is your "IoTHub Owner Connection string".  Close the "Shared Access Policy" blade
-* In the left-hand nav bar, click on "IoT Edge Devices (preview)"
+* In the left-hand nav bar, click on "IoT Edge (preview)"
 * click "Add Edge Device"
 * Give your IoT Edge Device a name and click "Create"
 * once created, find the IoT Edge Device connection string (primary key) and copy/paste this into Notepad.  This is the "IoT Edge Device" connection string
 
 ## Create docker hub account
 
-IoT Edge modules are pulled by the Edge runtime from a docker containder image repository.  You can host one locally in your own network/infrastrcuture if you choose, Azure offers a [container service](https://azure.microsoft.com/en-us/services/container-service/)  and of course, Docker themselves offer a respository (docker hub).  For simplicity, we will run the labs based off of hosting images in docker hub.  If you feel confident in doing so, feel free to leverage other docker image responsitories instead of docker hub if you wish.
+IoT Edge modules are pulled by the Edge runtime from a docker containder image repository.  You can host one locally in your own network/infrastructure if you choose, Azure offers a [container service](https://azure.microsoft.com/en-us/services/container-service/)  and of course, Docker themselves offer a repository (docker hub).  For simplicity, we will run the labs based off of hosting images in docker hub.  If you feel confident in doing so, feel free to leverage other docker image respositories instead of docker hub if you wish.
 
-For Docker Hub, you need a Docker ID.  Create one by visting www.docker.com and clicking on "Create Docker ID" and following the instructions.  Remember the docker ID you create, as we'll use it later.  Generally, docker images are referred to in a three part name:  \<respository>/image:tag where "respository", if using Docker Hub, is just your Docker ID,  image is your image name, and tag is an optional "tag" you can use to have multiple images with the same name (often used for versioning)
+For Docker Hub, you need a Docker ID.  Create one by visting www.docker.com and clicking on "Create Docker ID" and following the instructions.  Remember the docker ID you create, as we'll use it later.  Generally, docker images are referred to in a three part name:  \<respository>/image:tag where "respository" (if using Docker Hub) is just your Docker ID,  image is your image name, and tag is an optional "tag" you can use to have multiple images with the same name (often used for versioning)
 
 ## Install Prerequisites
 
