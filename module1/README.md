@@ -99,7 +99,7 @@ pip install -U azure-iot-edge-runtime-ctl
 
 Now that we have all the pieces in place, we are ready to start up our IoT Edge device.  We will start it by specifying the IoT Edge Device connection string capture above, as well as specifying the certificates we generated to allow downstream devices to establish valid TLS sessions with our Edge gateway.
 
-To setup and configure our IoT Edge device, run the following command  (if you used '1234' for the password above, enter it again here when prompted).
+To setup and configure our IoT Edge device, run the following command  (if you used '1234' for the password above, enter it again here when prompted). Make sure that Docker is running. 
 
 ```
 
