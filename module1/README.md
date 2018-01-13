@@ -2,15 +2,6 @@
 
 Created and maintained by the Microsoft Azure IoT Global Black Belts
 
-## Clone the lab materials locally
-
-The first step is to clone the lab materials locally (you'll need a few components of module2 locally to run).
-
-```cmd
-cd \
-git clone https://github.com/azureiotgbb/azure-iot-edge-hol
-```
-
 ## Create an IoT Hub and an "Edge Device"
 
 For the lab exercises, we need an IoT Hub created in an Azure Subscription for which you have administrative access.
@@ -48,9 +39,18 @@ __** Note - for in-person deliveries by the IoT GBBs, some of this may have been
 * [Open SSL](https://sourceforge.net/projects/openssl/)
     * for the lab instructions later, create a c:\utils folder and unzip the downloaded OpenSSL zip to c:\utils\ 
     (so you should a folder structure that looks like this->    c:\utils\OpenSSL)
+* [git](https://git-scm.com/downloads/)   ** installation of the default components and default configurations are fine
 * clone the Azure IoT C sdk.  We need this to get the certificate generation scripts.  Also, while Edge is in public preview, we need the 'CACertToolEdge' branch of the SDK.  Run the following command from the root of the "C" drive
     * git clone -b CACertToolEdge http://github.com/azure/azure-iot-sdk-c
 
+## Clone the lab materials locally
+
+The first step is to clone the lab materials locally (you'll need a few components of module2 locally to run).
+
+```cmd
+cd \
+git clone https://github.com/azureiotgbb/azure-iot-edge-hol
+```
 
 ## Additional miscellaneous setup
 
