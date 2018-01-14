@@ -130,7 +130,7 @@ In this section, we will get the device created above connected to IoT Edge and 
 ```json
 {
     "routes": {
-        "route":{"FROM /* INTO $upstream"}
+        "route":"FROM /* INTO $upstream"
     }
 }
 ```
