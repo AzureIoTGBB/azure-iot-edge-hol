@@ -73,6 +73,8 @@ In this section, we will load and execute the arduino "code" to talk to the DHT 
 
 ![Serial monitor](/images/m2bArduino11.png)
 
+8. Close the Serial Monitor (feel free to close the Arduino IDE as well - we are done with it).  If you do not close the Serial Monitor, it "holds on to" the COM port and we will get an error later trying to read from it.
+
 ## Create "IoT Device"
 
 Per the note about needing an intermediate IoT device to talk to the serial port and forward the messages on, we have a "dumb" IoT Device that reads the CSV-formatted data fron the serial/USB port and sends it to IoT Edge
