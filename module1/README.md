@@ -65,7 +65,7 @@ There are a few final steps needed to set up our specific lab scenario.  We are 
     * save and close the file
     * confirm you can successfully "ping mygateway.local"
 
-* Open a PowerShell session __*as an Adminstrator*__
+* Open a PowerShell session __*as an Adminstrator*__.  NOTE:  do this in a plain Powershell window.  it does not work in the PowerShell ISE for some reason
     * make an \edge folder   (mkdir c:\edge)
     * cd to the \edge folder (cd \edge)
     * Run "Set-ExecutionPolicy Unrestricted"
