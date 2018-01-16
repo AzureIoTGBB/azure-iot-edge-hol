@@ -2,15 +2,6 @@
 
 Created and maintained by the Microsoft Azure IoT Global Black Belts
 
-## Clone the lab materials locally
-
-The first step is to clone the lab materials locally (you'll need a few components of module2 locally to run).
-
-```cmd
-cd \
-git clone https://github.com/azureiotgbb/azure-iot-edge-hol
-```
-
 ## Create an IoT Hub and an "Edge Device"
 
 For the lab exercises, we need an IoT Hub created in an Azure Subscription for which you have administrative access.
@@ -48,9 +39,18 @@ __** Note - for in-person deliveries by the IoT GBBs, some of this may have been
 * [Open SSL](https://sourceforge.net/projects/openssl/)
     * for the lab instructions later, create a c:\utils folder and unzip the downloaded OpenSSL zip to c:\utils\ 
     (so you should a folder structure that looks like this->    c:\utils\OpenSSL)
+* [git](https://git-scm.com/downloads/)   ** installation of the default components and default configurations are fine
 * clone the Azure IoT C sdk.  We need this to get the certificate generation scripts.  Also, while Edge is in public preview, we need the 'CACertToolEdge' branch of the SDK.  Run the following command from the root of the "C" drive
     * git clone -b CACertToolEdge http://github.com/azure/azure-iot-sdk-c
 
+## Clone the lab materials locally
+
+The first step is to clone the lab materials locally (you'll need a few components of module2 locally to run).
+
+```cmd
+cd \
+git clone https://github.com/azureiotgbb/azure-iot-edge-hol
+```
 
 ## Additional miscellaneous setup
 
@@ -72,7 +72,7 @@ There are a few final steps needed to set up our specific lab scenario.  We are 
     * Run the following commands to set up our use of OpenSSL
         * $ENV:PATH += ";c:\utils\OpenSSL\bin"
         * $ENV:OPENSSL_CONF="c:\utils\OpenSSL\bin\openssl.cnf"
-    * import the ca-certs script with the following command (note the leading dot)
+    * import the ca-certs script with the following command (note the leading dot and space. This is call dot sourcing)
         * . \azure-iot-sdk-c\tools\CACertificates\ca-certs.ps1
     * Run Test-CACertsPrerequisites and make sure it returns the result "SUCCESS"
         * the Test-CACertsprequisites call fails, it means that the local machine already contains Azure IoT test certs (possibly from a previously deployment.  If that happens, you need to follow Step 5 - Cleanup of the instructions [here](https://github.com/Azure/azure-iot-sdk-c/blob/CACertToolEdge/tools/CACertificates/CACertificateOverview.md) before moving on)
@@ -99,7 +99,7 @@ pip install -U azure-iot-edge-runtime-ctl
 
 Now that we have all the pieces in place, we are ready to start up our IoT Edge device.  We will start it by specifying the IoT Edge Device connection string capture above, as well as specifying the certificates we generated to allow downstream devices to establish valid TLS sessions with our Edge gateway.
 
-To setup and configure our IoT Edge device, run the following command  (if you used '1234' for the password above, enter it again here when prompted).
+To setup and configure our IoT Edge device, run the following command  (if you used '1234' for the password above, enter it again here when prompted). Make sure that Docker is running. 
 
 ```
 
