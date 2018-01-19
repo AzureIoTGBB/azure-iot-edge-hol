@@ -8,8 +8,8 @@ For this step of the lab, we are going to create an Azure Stream Analytics job t
 
 For our use case, we are going to have the ASA job do two things concurrently:
 
-    1. aggregate the temperature and humidity data, which comes in at a higher rate, to a lower frequency of every 20 seconds
-    2. look for cases in which the tempertaure transition above or below 80 degrees.  This will kick off an 'alert' message that we can react to downstream of the ASA job
+* aggregate the temperature and humidity data, which comes in at a higher rate, to a lower frequency of every 20 seconds
+* look for cases in which the temperature transitions above or below 80 degrees.  This will kick off an 'alert' message that we can react to downstream of the ASA job
 
 ## Creating the ASA job
 
