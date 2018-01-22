@@ -186,7 +186,7 @@ In this section, we will get the module created above deployed and view the resu
   }
 }
 ```
-* replace "\<module name>" above (in two places) with the name of your module, case-sensitive, that you used above
+* replace "alertmodule" above (in two places) with the name of your module, case-sensitive, that you used above if different from "alertmodule".  Ditto for edgeASAJob and formattermodule
 
     * the first route above, takes any message that does not come from a "module" and routes it into the input of our Formatter Module.  In other words, it takes messages that comes from downstream IoT devices and routes them into our formatter module.  It also keeps messages that comes from our formatter module from being routed back into itself.
     * the second route takes the output from our Formatter Module and routes it up to IoT Hub in the cloud
@@ -205,7 +205,7 @@ Now hold your finger on the DHT22 temperature sensor to drive temp above 80.  On
 
 In VS Code, under the "IOT HUB DEVICES" section, like before, you should be able to right click on your __**IoT Edge device**__ (note, this is different than before), and choose "Start Monitoring D2C Messages" and see the alert messages flow through to IoT Hub as well if you repeat the process.
 
-Congratulations - you now have:
+Congratulations - You are done!  You now have:
 * data coming from a physical IoT device flowing into IoT Edge
 * an Edge module that intercepts and reformats that data
 * Streaming Analytics on the edge that pre-aggregates the data as well as generates "local" alerts when a dangerous high temperature situation occurs

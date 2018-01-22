@@ -132,3 +132,4 @@ CTRL-C to exit the logs when you are ready
 
 __**Congratulations -- you now have an IoT Edge device up and running and ready to use**__
 
+To continue with module 2, click [here](/module2)

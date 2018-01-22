@@ -192,3 +192,5 @@ in the command prompt runing your python script, hit CTRL-C to stop the script.
 ## Summary 
 
 The output of module is still the raw output of the device (in CSV format).  We've shown that we can connect a device through the edgeHub to IoT Hub in the cloud.  In the next labs, we will add modules to re-format the data as JSON, as well as aggregate the data and identify and take local action on "high temperature" alerts.
+
+To continue with module 3, click [here](/module3)
