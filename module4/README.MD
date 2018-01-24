@@ -8,8 +8,8 @@ For this step of the lab, we are going to create an Azure Stream Analytics job t
 
 For our use case, we are going to have the ASA job do two things concurrently:
 
-    1. aggregate the temperature and humidity data, which comes in at a higher rate, to a lower frequency of every 20 seconds
-    2. look for cases in which the tempertaure transition above or below 80 degrees.  This will kick off an 'alert' message that we can react to downstream of the ASA job
+* aggregate the temperature and humidity data, which comes in at a higher rate, to a lower frequency of every 20 seconds
+* look for cases in which the temperature transitions above or below 80 degrees.  This will kick off an 'alert' message that we can react to downstream of the ASA job
 
 ## Creating the ASA job
 
@@ -115,14 +115,14 @@ Now we are ready to deploy our ASA job to our Edge device.
 {
   "routes": {
     "toFormatterFromDevices": "FROM /messages/* WHERE NOT IS_DEFINED($connectionModuleId) INTO BrokeredEndpoint(\"/modules/formattermodule/inputs/input1\")",
-    "toASAJob": "FROM /messages/modules/formattermodule/outputs/output1 INTO BrokeredEndpoint(\"/modules/<asa-job-name>/inputs/inputFromHub\")",
-    "asaAlertsToIoTHub": "FROM /messages/modules/<asa-job-name>/outputs/asaAlertTemp INTO $upstream",
-    "asaAggrToIoTHub": "FROM /messages/modules/<asa-job-name>/outputs/asaAggregatedData INTO $upstream"
+    "toASAJob": "FROM /messages/modules/formattermodule/outputs/output1 INTO BrokeredEndpoint(\"/modules/edgeASAJob/inputs/inputFromHub\")",
+    "asaAlertsToIoTHub": "FROM /messages/modules/edgeASAJob/outputs/asaAlertTemp INTO $upstream",
+    "asaAggrToIoTHub": "FROM /messages/modules/edgeASAJob/outputs/asaAggregatedData INTO $upstream"
   }
 }
 ```
 
-* replace \<asa-job-name> above with the name of your ASA module (e.g. edgeASAJob)
+* replace "edgeASAJob" above with the name of your ASA module if you used a different name.  Ditto for "formatttermodule"
 
 click 'next' and 'finish' to publish our routes.
 
@@ -136,3 +136,4 @@ If it is not still running, restart the D2C message monitoring within VS Code.  
 
 So now we have ASA generating aggregated temperature/humidity data at a lower and less costly message rate to the cloud, and also doing local processing to generate temperture 'alerts'.  However, we are not yet taking action on those alerts.  We will do that in the next module (module 5).
 
+To continue with module 5, click [here](/module5)

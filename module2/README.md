@@ -73,6 +73,8 @@ In this section, we will load and execute the arduino "code" to talk to the DHT 
 
 ![Serial monitor](/images/m2bArduino11.png)
 
+8. Close the Serial Monitor (feel free to close the Arduino IDE as well - we are done with it).  If you do not close the Serial Monitor, it "holds on to" the COM port and we will get an error later trying to read from it.
+
 ## Create "IoT Device"
 
 Per the note about needing an intermediate IoT device to talk to the serial port and forward the messages on, we have a "dumb" IoT Device that reads the CSV-formatted data fron the serial/USB port and sends it to IoT Edge
@@ -130,7 +132,7 @@ In this section, we will get the device created above connected to IoT Edge and 
 ```json
 {
     "routes": {
-        "route":{"FROM /* INTO $upstream"}
+        "route":"FROM /* INTO $upstream"
     }
 }
 ```
@@ -151,7 +153,7 @@ The edge device is now ready for our device to connect.
 
 ### Monitor our IoT Hub
 
-In VS Code, click on the 'Extensions' tab on the left nav.  Search for an install the "Azure IoT Toolkit" by Microsoft.  Once installed (reload VS Code, if necessary), click back on the folder view and you should see a new section called "IOT HUB DEVICES".  Hover over it and you should see three dots "...".  Click on that and click "Set IoT Hub Connection String".  You should see an Edit box appear for you to enter a connection string.  Go back to notepad where we copied the connection strings earlier, and copy/paste the "IoT Hub level" (the 'iothubowner') connection string from earlier into the VS Code edit box and hit ok.
+In VS Code, click on the 'Extensions' tab on the left nav.  Search for an install the "Azure IoT Toolkit" by Microsoft.  Once installed (reload VS Code, if necessary), click back on the folder view and you should see a new section called "IOT HUB DEVICES" (on the left hand side, at the bottom, below all the 'files').  Hover over it and you should see three dots "...".  Click on that and click "Set IoT Hub Connection String".  You should see an Edit box appear for you to enter a connection string.  Go back to notepad where we copied the connection strings earlier, and copy/paste the "IoT Hub level" (the 'iothubowner') connection string from earlier into the VS Code edit box and hit ok.
 
 After a few seconds, a list of IoT Device should appear in that section.  Once it does, find the IoT Device (not the edge device) that is tied to your python script.  Right click on it and select "Start monitoring D2C messages".  This should open an output window in VS Code and show that it is listening for messages.
 
@@ -190,3 +192,5 @@ in the command prompt runing your python script, hit CTRL-C to stop the script.
 ## Summary 
 
 The output of module is still the raw output of the device (in CSV format).  We've shown that we can connect a device through the edgeHub to IoT Hub in the cloud.  In the next labs, we will add modules to re-format the data as JSON, as well as aggregate the data and identify and take local action on "high temperature" alerts.
+
+To continue with module 3, click [here](/module3)

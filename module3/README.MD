@@ -153,7 +153,7 @@ In this section, we will get the module created above deployed and view the resu
 * in the Azure portal, navigate to your IoT Hub, click on IoT Edge Devices (preview) on the left nav, click on your IoT Edge device
 * click on "Set Modules" in the top menu bar.  
 * In the Set Modules blade, click on "Add IoT Edge Module"
-    * In the "IoT Edge Modules" dialog, give your module a name (for example:  formatterModule).  Remember the name you used, including the proper 'case' of the letters, as we'll need that when we set the routes in the next step.
+    * In the "IoT Edge Modules" dialog, give your module a name (for example:  formattermodule).  Remember the name you used, including the proper 'case' of the letters, as we'll need that when we set the routes in the next step.
     * in the image URI box, put in the exact same image name you used in the previous step (e.g. <docker hub id>/formattermodule:latest)
     * leave the other defaults and click "Save"
 * back on the "Set Modules" blade, click "next"
@@ -162,12 +162,12 @@ In this section, we will get the module created above deployed and view the resu
 ```
 {
     "routes": {
-        "toFormatterFromDevices": "FROM /messages/* WHERE NOT IS_DEFINED($connectionModuleId) INTO BrokeredEndpoint(\"/modules/<module name>/inputs/input1\")",
-        "toIoTHub": "FROM /messages/modules/<module name>/outputs/output1 INTO $upstream"
+        "toFormatterFromDevices": "FROM /messages/* WHERE NOT IS_DEFINED($connectionModuleId) INTO BrokeredEndpoint(\"/modules/formattermodule/inputs/input1\")",
+        "toIoTHub": "FROM /messages/modules/formattermodule/outputs/output1 INTO $upstream"
     }
 }
 ```
-* replace "\<module name>" above (in two places) with the name of your module, case-sensitive, that you used above
+* replace "formattermodule" above (in two places) with the name of your module, case-sensitive, that you used above if different than 'formattermodule'
 
     * the first route above, takes any message that does not come from a "module" and routes it into the input of our Formatter Module.  In other words, it takes messages that comes from downstream IoT devices and routes them into our formatter module.  It also keeps messages that comes from our formatter module from being routed back into itself.
     * the second route takes the output from our Formatter Module and routes it up to IoT Hub in the cloud
@@ -190,3 +190,5 @@ __**  NOTE:  Now that we have an edge module "in between" our IoT device and IoT
 Stop the python script (CTRL-C) while we work on the next module
 
 Ok - now we have messages flowing from our IoT Device and being translated to JSON and sent to IoT Hub.  However, the messages are flowing at the original high rate of our "dumb" IoTHub device.  Now we are going to add the capability to aggregate the data at the edge, as well as determine when a "high temperature" alert condition occurs (module 4) and take local action (module 5).
+
+To continue with module 4, click [here](/module3)

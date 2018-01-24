@@ -18,8 +18,8 @@ In this workshop you will:
 
 * Setup and configure a simple IoT Device, based on an Arduino Uno connected to a DHT22 temperature sensor, to simply (and dumbly) send temperature over the serial port every 3 seconds
 * create an "IoT Device" that reads the data from the serial port and connects to IoT Hub __**through**__ IoT Edge
-* create an IoT Edge module that read the simple CSV temp/humidity data from the device and converts to JSON and passes the message along
-* create an Azure Stream Analytics module that a) aggregates the "every 3 seconds" data to a 30 second frequency to send to IoT Hub in the cloud and b) looks for temperatures above a certain threshold.  Then a threshold violation occurs, the module will drop an "alert" message on Edge
+* create an IoT Edge module that reads the simple CSV temp/humidity data from the device and converts to JSON and passes the message along
+* create an Azure Stream Analytics module that a) aggregates the "every 3 seconds" data to a 30 second frequency to send to IoT Hub in the cloud and b) looks for temperatures above a certain threshold.  When a threshold violation occurs, the module will drop an "alert" message on Edge
 * create an IoT Edge module that reads the "alert" message from ASA and sends a Direct Method call to the IoT Device to light up an "alert" LED
 
 The labs are broken up into the following modules:
