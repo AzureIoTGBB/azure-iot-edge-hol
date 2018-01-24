@@ -34,7 +34,14 @@ Sometimes Docker can get in a weird state.  We've seen this a few times when a m
 
 ### Lab troubleshooting tips
 
-_*when i try to install the edge runtime control script with 'pip install -U azure-iot-edge-runtime-control', it tells me pip is not found*_
+_*when I try to start IoT Edge (via iotedgectl start), I get an error mentioning the "Docker API"*_
+
+This can happen for a few reasons:
+* you are running Windows containers instead of Linux containers.  To check, right-click on the docker "whale" down in your notification area.  If it says "switch to Windows containers", then you are currently running Linux containers and are ok.  If it says "switch to Linux containers", please do so and then try again!
+* some networking change has happened (different wifi, etc) since docker started.  Restart docker by right clicking on the docker "whale" in the notification area, choose "settings", go the the 'reset' tab, and click "restart docker"
+* you aren't *supposed* to need to run in an adminitrative command prompt, but it doesn't hurt to try :-)
+
+_*when I try to install the edge runtime control script with 'pip install -U azure-iot-edge-runtime-control', it tells me pip is not found*_
 
 Make sure that c:\python27\scripts is in your path.  If not, add it and re-open your command prompt
 

@@ -40,8 +40,6 @@ __** Note - for in-person deliveries by the IoT GBBs, some of this may have been
 
 * Windows 10 Fall Creators Update (build 16299)
 * [Docker for Windows](https://docs.docker.com/docker-for-windows/install/)   ** the "community edition" is fine.  A reboot may be required to enable Hyper-V
-* [Python 2.7 for Windows](https://www.python.org/downloads/)
-    * during setup, check the box to "add python 2.7 folder to the path"
 * [Visual Studio Code](https://code.visualstudio.com/)
 * [.NET Core SDK](https://www.microsoft.com/net/core#windowscmd)
 * [Arduino IDE](http://www.arduino.cc/)
@@ -50,7 +48,10 @@ __** Note - for in-person deliveries by the IoT GBBs, some of this may have been
     (so you should a folder structure that looks like this->    c:\utils\OpenSSL)
 * clone the Azure IoT C sdk.  We need this to get the certificate generation scripts.  Also, while Edge is in public preview, we need the 'CACertToolEdge' branch of the SDK.  Run the following command from the root of the "C" drive
     * git clone -b CACertToolEdge http://github.com/azure/azure-iot-sdk-c
+* [Python 2.7 for Windows](https://www.python.org/downloads/)  -- __**make sure it's 2.7.x, NOT 3.x.x**__
+    * during setup, elect to "add python 2.7 folder to the path"  (see screenshot below -- You will need to SCROLL DOWN to see it)
 
+![python_install](/images/python_install.png)
 
 ## Additional miscellaneous setup
 
