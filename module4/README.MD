@@ -25,8 +25,10 @@ To create the ASA job:
 * in the Azure portal, navigate in the left nav bar to the Azure Stream Analytics jobs blade and click Add
     * give your ASA job a unique name (e.g. edgeASAJob)
     * under resource group, choose "use existing" and pick the same resource group that contains your IoT Hub
-    * for Hosting Environment, choose "Edge"
+    * for Hosting Environment, choose "Edge"   (see NOTE below)
     * click "Create"
+
+NOTE:   there is a bug in the Azure portal that may be fixed by the time you do these labs, however, if you do not see the "Hosting Environment" choice in the UI, use [this link](https://portal.azure.com/?Microsoft_Azure_StreamAnalytics_onedge=true) to access the Azure Portal instead
 
 After a few moments, your ASA job will be created.  Click "Go to Resource" to navigate to the portal blade for your job
 

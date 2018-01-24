@@ -129,6 +129,8 @@ If you want to see if the edge Agent successfully started, run
 docker logs -f edgeAgent
 ```
 
+Note that you may see an error in the edgeAgent logs about having an 'empty configuration'.  That's fine, because we haven't set a configuration yet!  :-)
+
 CTRL-C to exit the logs when you are ready
 
 __**Congratulations -- you now have an IoT Edge device up and running and ready to use**__
