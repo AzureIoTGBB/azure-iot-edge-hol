@@ -191,4 +191,4 @@ Stop the python script (CTRL-C) while we work on the next module
 
 Ok - now we have messages flowing from our IoT Device and being translated to JSON and sent to IoT Hub.  However, the messages are flowing at the original high rate of our "dumb" IoTHub device.  Now we are going to add the capability to aggregate the data at the edge, as well as determine when a "high temperature" alert condition occurs (module 4) and take local action (module 5).
 
-To continue with module 4, click [here](/module3)
+To continue with module 4, click [here](/module4)
