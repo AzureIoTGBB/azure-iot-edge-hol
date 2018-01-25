@@ -21,7 +21,7 @@ In the IoT Hub blade of the Azure portal for your created IoT Hub, do the follow
 
 IoT Edge modules are pulled by the Edge runtime from a docker containder image repository.  You can host one locally in your own network/infrastructure if you choose, Azure offers a [container service](https://azure.microsoft.com/en-us/services/container-service/)  and of course, Docker themselves offer a repository (docker hub).  For simplicity, we will run the labs based off of hosting images in docker hub.  If you feel confident in doing so, feel free to leverage other docker image respositories instead of docker hub if you wish.
 
-For Docker Hub, you need a Docker ID.  Create one by visting www.docker.com and clicking on "Create Docker ID" and following the instructions.  Remember the docker ID you create, as we'll use it later.  Generally, docker images are referred to in a three part name:  \<respository>/image:tag where "respository" (if using Docker Hub) is just your Docker ID,  image is your image name, and tag is an optional "tag" you can use to have multiple images with the same name (often used for versioning)
+For Docker Hub, you need a Docker ID.  Create one by visting www.docker.com and clicking on "Create Docker ID" and following the instructions.  Remember the docker ID you create, as we'll use it later.  If you are given a choice during sign up, choose a repository visibility of 'public'.  Generally, docker images are referred to in a three part name:  \<respository>/image:tag where "respository" (if using Docker Hub) is just your Docker ID,  image is your image name, and tag is an optional "tag" you can use to have multiple images with the same name (often used for versioning).
 
 ## Install Prerequisites
 
