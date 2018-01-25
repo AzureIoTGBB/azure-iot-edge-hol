@@ -30,7 +30,7 @@ In order to execute the hands-on labs, there are a number of pre-requisites that
 __** Note - for in-person deliveries by the IoT GBBs, some of this may have been done for you.  Please check with your instructor **__
 
 * Windows 10 Fall Creators Update (build 16299)
-* [Docker for Windows](https://docs.docker.com/docker-for-windows/install/)   ** the "community edition" is fine.  A reboot may be required to enable Hyper-V
+* [Docker for Windows](https://docs.docker.com/docker-for-windows/install/)   ** the "community edition" is fine.  Make sure you install the STABLE version.  A reboot may be required to enable Hyper-V
 * [Visual Studio Code](https://code.visualstudio.com/)
 * [.NET Core SDK](https://www.microsoft.com/net/core#windowscmd)
 * [Arduino IDE](http://www.arduino.cc/)
