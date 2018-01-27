@@ -92,31 +92,9 @@ There are a few final steps needed to set up our specific lab scenario.  We are 
 
 Microsoft provides a python-based, cross-platform configuration and setup tool for IoT Edge.  To install the tool, open an administrator command prompt and run:
 
-```
+```cmd
 pip install -U azure-iot-edge-runtime-ctl
 ```
-
-## patch the pypiWin32 package
-
-Very recently, someone updated one of the packages (pypiwin32) that the IoT Edge configuration tool depends on and make a breaking change.  Because of this, after installing the tool above, we need to uninstall the new version of that package and install the old one.
-
-*IF you try to run 'iotedgectl status' and get an error that states that you are missing the dependency of pypiwin32, then we have this issue.
-
-From your elevated command prompt, run
-
-```cmd
-pip uninstall pypiwin32
-```
-
-you'll need to answer with a 'y' when prompted to do the uninstall
-
-then run
-
-```cmd
-pip install pypiwin32==219
-```
-
-to install the previous version of the package.
 
 ## Configure and start IoT Edge
 
