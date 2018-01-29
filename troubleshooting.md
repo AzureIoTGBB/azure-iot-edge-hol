@@ -34,6 +34,13 @@ Sometimes Docker can get in a weird state.  We've seen this a few times when a m
 
 ### Lab troubleshooting tips
 
+_*General tips*_
+
+* As mentioned above, make sure you are running Linux containers.  Right click on the 'whale' in your notification area and make sure it says "Switch to Windows containers" (which means you are currently correctly running Linux containers)
+* check the case on everything!  module names, routes, etc are all CASE SENSITIVE.  If something is not connecting or data is not flowing, check the case between the module names and the routes.
+* if you aren't seeing data in the "D2C monitoring" in VS Code, make sure you are looking at the right device.  For module2, you should be looking at your "IoT Leaf Device" (i.e. the one from the python script).  For module 3 or subsequent modules, you should be monitoring your IoT *EDGE* device (because once we insert a module in between the device and IoT Hub, it becomes a different 'message' from a different source)
+* when it comes to troubleshooting, the first stop should be the docker logs for the modules.  We can't say this enough :-)
+
 _*when I try to start IoT Edge (via iotedgectl start), I get an error mentioning the "Docker API"*_
 
 This can happen for a few reasons:
