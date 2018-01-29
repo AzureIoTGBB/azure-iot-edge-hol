@@ -33,9 +33,9 @@ Now lets modify the sample code to implement our Alert module.
     <PackageReference Include="Microsoft.Azure.Devices" Version="1.5.0-preview-001" />
 ```
 
-* In the Integrated Terminal window, run the command 'dotnet restore' to download and install the new Nuget package
+* In the Integrated Terminal window, type 'cd AlertModule' and run the command 'dotnet restore' to download and install the new Nuget package
 
-* in the "using" section above the Program class, add the two following 'using' statements
+* Open the Program.cs file, and in the "using" section above the Program class, add the two following 'using' statements
 
 ```CSharp
 using Newtonsoft.Json;
@@ -141,7 +141,7 @@ The first step is to create our docker image.  Luckily the VS Code template make
 * in the pop-up text box at the top of VS Code, enter an image name.  You should start it with the name of the docker hub user id you created earlier.  For example:
 
 ```
-<docker_user_name>/alertModule:latest
+<docker_user_name>/alertmodule:latest
 ```
 
 * hit enter to build your image
@@ -170,7 +170,7 @@ In this section, we will get the module created above deployed and view the resu
 * click on "Set Modules" in the top menu bar.  
 * In the Set Modules blade, click on "Add IoT Edge Module"
     * In the "IoT Edge Modules" dialog, give your module a name (for example:  AlertModule).  Remember the name you used, including the proper 'case' of the letters, as we'll need that when we set the routes in the next step.
-    * in the image URI box, put in the exact same image name you used in the previous step (e.g. <docker hub id>/alertModule:latest)
+    * in the image URI box, put in the exact same image name you used in the previous step (e.g. <docker hub id>/alertmodule:latest)
     * leave the other defaults and click "Save"
 * back on the "Set Modules" blade, click "next"
 * on the "specify routes" blade, replace the default with the following:
