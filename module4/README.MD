@@ -53,7 +53,7 @@ SELECT
     AVG(temperature) as AvgTemp,
     AVG(humidity) as AvgHumidity,
     System.Timestamp as eventdatetime
-INTO asaAggregatedData
+INTO asaAggregatedTemp
 FROM inputFromHub
 WHERE temperature IS NOT NULL
 GROUP BY
@@ -119,7 +119,7 @@ Now we are ready to deploy our ASA job to our Edge device.
     "toFormatterFromDevices": "FROM /messages/* WHERE NOT IS_DEFINED($connectionModuleId) INTO BrokeredEndpoint(\"/modules/formattermodule/inputs/input1\")",
     "toASAJob": "FROM /messages/modules/formattermodule/outputs/output1 INTO BrokeredEndpoint(\"/modules/edgeASAJob/inputs/inputFromHub\")",
     "asaAlertsToIoTHub": "FROM /messages/modules/edgeASAJob/outputs/asaAlertTemp INTO $upstream",
-    "asaAggrToIoTHub": "FROM /messages/modules/edgeASAJob/outputs/asaAggregatedData INTO $upstream"
+    "asaAggrToIoTHub": "FROM /messages/modules/edgeASAJob/outputs/asaAggregatedTemp INTO $upstream"
   }
 }
 ```
