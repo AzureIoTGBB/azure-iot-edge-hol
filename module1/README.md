@@ -6,12 +6,13 @@ Created and maintained by the Microsoft Azure IoT Global Black Belts
 
 For the lab exercises, we need an IoT Hub created in an Azure Subscription for which you have administrative access.
 
-Create an IoT Hub in your subscription by following the instructions [here](https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-create-through-portal)
+Create an IoT Hub in your subscription by following the instructions [here](https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-create-through-portal).   NOTE:  you can stop after the section titled "Create the IoT Hub"  (i.e. BEFORE "Change the settings of the IoT Hub").  There is no need to go any further in those instructions after the IoT Hub is created.
 
 While you are in the Azure portal, let's go ahead and grab a couple of important connection parameters and create an IoT Edge Device
 
 In the IoT Hub blade of the Azure portal for your created IoT Hub, do the following:
-* In the left-hand nav bar, click on "Shared Access Policies" and then click on "iothubowner", copy the "Connection String - Primary Key" string and paste it into Notepad.  We'll need it later.  This is your "IoTHub Owner Connection string".  Close the "Shared Access Policy" blade
+* In the left-hand nav bar, click on "Shared Access Policies" and then click on "iothubowner", copy the "Connection String - Primary Key" string and paste it into Notepad.  We'll need it later.  This is your "IoTHub Owner Connection string" (keep that in mind, or make a note next to it in Notepad, we will use it in subsequent labs).  
+* Close the "Shared Access Policy" blade
 * In the left-hand nav bar, click on "IoT Edge (preview)"
 * click "Add Edge Device"
 * Give your IoT Edge Device a name and click "Create"
@@ -69,22 +70,52 @@ There are a few final steps needed to set up our specific lab scenario.  We are 
 * Open a PowerShell session __*as an Adminstrator*__.  NOTE:  do this in a plain Powershell window.  it does not work in the PowerShell ISE for some reason
     * make an \edge folder   (mkdir c:\edge)
     * cd to the \edge folder (cd \edge)
-    * Run "Set-ExecutionPolicy Unrestricted"
+    * Run the following powershell command:
+    
+    ```Powershell
+    Set-ExecutionPolicy Unrestricted
+    ```
+
     * Run the following commands to set up our use of OpenSSL
-        * $ENV:PATH += ";c:\utils\OpenSSL\bin"
-        * $ENV:OPENSSL_CONF="c:\utils\OpenSSL\bin\openssl.cnf"
+
+    ```Powershell
+        $ENV:PATH += ";c:\utils\OpenSSL\bin"
+        $ENV:OPENSSL_CONF="c:\utils\OpenSSL\bin\openssl.cnf"
+    ```    
+
     * import the ca-certs script with the following command (note the leading dot and space. This is call dot sourcing)
-        * . \azure-iot-sdk-c\tools\CACertificates\ca-certs.ps1
-    * Run Test-CACertsPrerequisites and make sure it returns the result "SUCCESS"
-        * the Test-CACertsprequisites call fails, it means that the local machine already contains Azure IoT test certs (possibly from a previously deployment.  If that happens, you need to follow Step 5 - Cleanup of the instructions [here](https://github.com/Azure/azure-iot-sdk-c/blob/CACertToolEdge/tools/CACertificates/CACertificateOverview.md) before moving on)
+    ```Powershell
+    . \azure-iot-sdk-c\tools\CACertificates\ca-certs.ps1
+    ```
+
+    * Run 
+    
+        ```Powershell
+        Test-CACertsPrerequisites 
+        ```
+    
+        and make sure it returns the result "SUCCESS"
+    * If the Test-CACertsprequisites call fails, it means that the local machine already contains Azure IoT test certs (possibly from a previously deployment.  If that happens, you need to follow Step 5 - Cleanup of the instructions [here](https://github.com/Azure/azure-iot-sdk-c/blob/CACertToolEdge/tools/CACertificates/CACertificateOverview.md) before moving on)
     * DO NOT CLOSE THE POWERSHELL session yet
         * (if you do, just reopen it and re-add the environment variables above)
 
 * We are now ready to generate the TLS certificates for our Edge device
     * make sure you are still in the c:\edge folder in your PowerShell session
-    * run "New-CACertsCertChain rsa" to generate our test certs  (in production, you would use a real CA for this...)
+    * run 
+    
+        ```Powershell
+        New-CACertsCertChain rsa
+        ```
+    
+        to generate our test certs  (in production, you would use a real CA for this...)
     * in the azure portal, navigate back to your IoT Hub and click on "Certificates" on the left-nav and click "+Add".  Give your certificate a name, and upload the c:\edge\RootCA.cer" file
-    * now we need to generate certs for our specific gateway to do so, run "New-CACertsEdgeDevice myGateway" command in Powershell.  This will generate the gateway specific certs (MyGateway.*).  When prompted to enter a password during the signing process, just enter "1234".
+    * now we need to generate certs for our specific gateway to do so, run
+    
+        ```PowerShell
+        New-CACertsEdgeDevice myGateway
+        ```
+
+        command in Powershell.  This will generate the  gateway specific certs (MyGateway.*).  When prompted to enter a password during the signing process, just enter "1234".
 
     NOTE:  if anything goes wrong during this process and you need to repeat it, you'll likely need to clean up the existing certs before generating new ones.  To do so, follow Step 5 - Cleanup, of the process outlined [here](https://github.com/Azure/azure-iot-sdk-c/blob/CACertToolEdge/tools/CACertificates/CACertificateOverview.md)
 

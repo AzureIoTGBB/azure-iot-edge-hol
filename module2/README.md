@@ -38,6 +38,10 @@ In this section, we will assemble the IoT device out of the arduino and DHT22 te
 
 2. With the provided jumper wires and breadboard assemble the Arduino using the following schematic.  ** please note the diagram is logical and not to scale.  The first and second pins cannot really be separated like shown **
 
+
+__** UPDATE - the DHT22 sensors you received for this lab may differ from the picture.  If your sensor has only 3 pins, then that's fine.  Just connect the pin with the "+" next to it to the 3.3v pin on the Arduino device, connect the 'middle' pin marked 'out' to the digital pin '2' on the Arduino, and the pin marked "-" to the GND (ground) pin on the Arduino**.  For this particular type of DHT22, it has a built in resistor so you don't need the resistor shown on the diagram **__
+
+
 ![schematic](/images/m2bArduino7.png)
 
 This diagram may seem complicated, so let’s deconstruct it a bit.
@@ -98,7 +102,9 @@ pip install pyserial
 3. To represent our device in IoT Hub, we need to create an IoT Device
     * in the Azure portal, for your IoT Hub, click on "IoT Devices" in the left-nav  (note, this is different than the "IoT Edge Devices" we used previously)
     * click on "+Add Device" to add a new device.  Give the device a name and click "create"
-    * capture (in notepad) the Connection String - Primary Key for your IoT device, we will need it in a moment
+    * once the device is created, you will see it appear in the list of devices.  Click on the device you just created to get to the details screen.
+    * capture (in notepad) the Connection String - Primary Key for your IoT device, we will need it in a moment.   This is known later as the "IoT Device Connection String"
+    * __**finally, note the device is created in an initial state of 'Disabled'.  Click on the "Enable" button to enable it.**__
 
 4. We need to fill in a couple of pieces of information into our python script.
 
@@ -115,9 +121,9 @@ replace "serial port" with the serial port your arduino device is plugged into (
 * In the line below
 
 ```Python
-connection_string = "<connection string here>"
+connection_string = "<IoT Device connection string here>"
 ```
-put your connection string in the quotes.  Onto the end of your connection string, append ";GatewayHostName=mygateway.local".  This tells our Python script/device to connect to the specified IoTHub in it's connection string, but to do so __**through the specified Edge gateway**__
+put your "IoT Device connection string" (captured just above) in the quotes.  Onto the end of your connection string, append ";GatewayHostName=mygateway.local".  This tells our Python script/device to connect to the specified IoTHub in it's connection string, but to do so __**through the specified Edge gateway**__
 
 Ok, we now have our device ready, so let's get it connected to the Hub
 
@@ -166,6 +172,11 @@ python -u readserial.py
 ```
 
 You should see debug output indicating that the device was connected to the "IoT Hub" (in actuality it is connected to the edge device) and see it starting reading and sending humidity and temperature messages.
+
+Your output should look something like the below screenshot.  Note that the lines showing the data being sent are interspersed with confirmation messages that it was successfully sent.  If your output doesn't look like this (and is, for example, only showing the temp/humidity readings and no confirmation messages), then YOUR PYTHON SCRIPT IS NOT CORRECTLY WORKING WITH EDGE and you need to troubleshoot
+
+![python_success](/images/python_success.png)
+
 
 ### Observe D2C messages
 

@@ -11,7 +11,7 @@ i = 0
 ser = serial.Serial('<serial port>', 9600)
  
 #change this -- don't forget the "GatewayHostName" param at the end
-connection_string = "<connection string here>"
+connection_string = "<IoT Device connection string here>"
 
 def receive_message_callback(message, counter):
     buffer = message.get_bytearray()
