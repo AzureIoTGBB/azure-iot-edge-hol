@@ -1,0 +1,10 @@
+C:\serial\serialdevice\bin\Debug\netcoreapp2.0\serialdevice.deps.json
+C:\serial\serialdevice\bin\Debug\netcoreapp2.0\serialdevice.runtimeconfig.json
+C:\serial\serialdevice\bin\Debug\netcoreapp2.0\serialdevice.runtimeconfig.dev.json
+C:\serial\serialdevice\bin\Debug\netcoreapp2.0\serialdevice.dll
+C:\serial\serialdevice\bin\Debug\netcoreapp2.0\serialdevice.pdb
+C:\serial\serialdevice\obj\Debug\netcoreapp2.0\serialdevice.csproj.CoreCompileInputs.cache
+C:\serial\serialdevice\obj\Debug\netcoreapp2.0\serialdevice.AssemblyInfoInputs.cache
+C:\serial\serialdevice\obj\Debug\netcoreapp2.0\serialdevice.AssemblyInfo.cs
+C:\serial\serialdevice\obj\Debug\netcoreapp2.0\serialdevice.dll
+C:\serial\serialdevice\obj\Debug\netcoreapp2.0\serialdevice.pdb

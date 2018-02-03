@@ -1,0 +1,10 @@
+C:\serial\readserial\bin\Debug\netcoreapp2.0\readserial.deps.json
+C:\serial\readserial\bin\Debug\netcoreapp2.0\readserial.runtimeconfig.json
+C:\serial\readserial\bin\Debug\netcoreapp2.0\readserial.runtimeconfig.dev.json
+C:\serial\readserial\bin\Debug\netcoreapp2.0\readserial.dll
+C:\serial\readserial\bin\Debug\netcoreapp2.0\readserial.pdb
+C:\serial\readserial\obj\Debug\netcoreapp2.0\readserial.csproj.CoreCompileInputs.cache
+C:\serial\readserial\obj\Debug\netcoreapp2.0\readserial.AssemblyInfoInputs.cache
+C:\serial\readserial\obj\Debug\netcoreapp2.0\readserial.AssemblyInfo.cs
+C:\serial\readserial\obj\Debug\netcoreapp2.0\readserial.dll
+C:\serial\readserial\obj\Debug\netcoreapp2.0\readserial.pdb

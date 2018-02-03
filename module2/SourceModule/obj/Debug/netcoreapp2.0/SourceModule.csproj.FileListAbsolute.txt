@@ -1,0 +1,10 @@
+c:\Users\stevebus\Documents\edge\SourceModule\bin\Debug\netcoreapp2.0\SourceModule.deps.json
+c:\Users\stevebus\Documents\edge\SourceModule\bin\Debug\netcoreapp2.0\SourceModule.runtimeconfig.json
+c:\Users\stevebus\Documents\edge\SourceModule\bin\Debug\netcoreapp2.0\SourceModule.runtimeconfig.dev.json
+c:\Users\stevebus\Documents\edge\SourceModule\bin\Debug\netcoreapp2.0\SourceModule.dll
+c:\Users\stevebus\Documents\edge\SourceModule\bin\Debug\netcoreapp2.0\SourceModule.pdb
+c:\Users\stevebus\Documents\edge\SourceModule\obj\Debug\netcoreapp2.0\SourceModule.csproj.CoreCompileInputs.cache
+c:\Users\stevebus\Documents\edge\SourceModule\obj\Debug\netcoreapp2.0\SourceModule.AssemblyInfoInputs.cache
+c:\Users\stevebus\Documents\edge\SourceModule\obj\Debug\netcoreapp2.0\SourceModule.AssemblyInfo.cs
+c:\Users\stevebus\Documents\edge\SourceModule\obj\Debug\netcoreapp2.0\SourceModule.dll
+c:\Users\stevebus\Documents\edge\SourceModule\obj\Debug\netcoreapp2.0\SourceModule.pdb
