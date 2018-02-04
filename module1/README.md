@@ -2,6 +2,12 @@
 
 Created and maintained by the Microsoft Azure IoT Global Black Belts
 
+## Azure Portal Access
+
+Because the Azure Streaming Analytics on Edge feature is in preview, to access the Azure Portal, use this specially formatted URL throughout the labs:
+
+https://portal.azure.com/?Microsoft_Azure_StreamAnalytics_onedge=true
+
 ## Create an IoT Hub and an "Edge Device"
 
 For the lab exercises, we need an IoT Hub created in an Azure Subscription for which you have administrative access.
