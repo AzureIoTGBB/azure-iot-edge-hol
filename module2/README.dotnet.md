@@ -4,7 +4,7 @@ Created and maintained by the Microsoft Azure IoT Global Black Belts
 
 ## KNOW BEFORE YOU START
 
-This version of module2 uses .NET Core for our "IoT Device".  If you have trouble with it, or simply prefer python, there is an alternate ".NET Core" implementation [here](./readme.md)
+This version of module2 uses .NET Core for our "IoT Device".  If you have trouble with it, or simply prefer python, there is an alternate ".NET Core" implementation [here](./README.md)
 
 ## Introduction
 
