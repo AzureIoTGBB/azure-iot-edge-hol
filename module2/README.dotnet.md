@@ -4,7 +4,7 @@ Created and maintained by the Microsoft Azure IoT Global Black Belts
 
 ## KNOW BEFORE YOU START
 
-This version of module2 uses python for our "IoT Device".  If you have trouble with it, or simply prefer .NET/C#, there is an alternate ".NET Core" implementation [here](./readme.dotnet.md)
+This version of module2 uses .NET Core for our "IoT Device".  If you have trouble with it, or simply prefer python, there is an alternate ".NET Core" implementation [here](./readme.md)
 
 ## Introduction
 
@@ -87,47 +87,38 @@ In this section, we will load and execute the arduino "code" to talk to the DHT 
 
 Per the note about needing an intermediate IoT device to talk to the serial port and forward the messages on, we have a "dumb" IoT Device that reads the CSV-formatted data fron the serial/USB port and sends it to IoT Edge
 
-For our device, we will leverage a python script that emulates our IoT Device.  The device leverages our python Azure IoT SDK to connect to the hub.
+For our device, we will leverage a .NET Core console app that emulates our IoT Device.  The device leverages our C# Azure IoT SDK to connect to the hub.
 
 ### setup libraries and pre-requisites
 
-1. Because we are in public preview with IoT Edge, we need to leverage a preview version of the python SDK.  To install that preview version, open an administrator command prompt and run this command
-
-```
-pip install azure-iothub-device-client==1.2.0.0b0
-```
-
-2. Our script leverages the pyserial library for reading from the serial port, so we need to install it.  From the command prompt, run
-
-```
-pip install pyserial
-```
-
-3. To represent our device in IoT Hub, we need to create an IoT Device
+1. To represent our device in IoT Hub, we need to create an IoT Device
     * in the Azure portal, for your IoT Hub, click on "IoT Devices" in the left-nav  (note, this is different than the "IoT Edge Devices" we used previously)
     * click on "+Add Device" to add a new device.  Give the device a name and click "create"
     * once the device is created, you will see it appear in the list of devices.  Click on the device you just created to get to the details screen.
     * capture (in notepad) the Connection String - Primary Key for your IoT device, we will need it in a moment.   This is known later as the "IoT Device Connection String"
     * __**finally, note the device is created in an initial state of 'Disabled'.  Click on the "Enable" button to enable it.**__
 
-4. We need to fill in a couple of pieces of information into our python script.
+2. We need to fill in a couple of pieces of information into our dotnet app.
 
-Run VS Code and click on File - Open Folder.  Open the c:\azure-iot-edge-hol folder.  Under the /module2 folder, open the readserial.py script.
+Run VS Code and click on File - Open Folder.  Open the c:\azure-iot-edge-hol folder.  Under the /module2/dotnet/readserial folder, open Progam.cs.
 
 * In the line of code below
 
-```Python
-ser = serial.Serial('<serial port>', 9600)
+```CSharp
+static string PortName = "<Port name>";  // e.g. "COM3"
 ```
 
-replace "serial port" with the serial port your arduino device is plugged into (e.g "COM3")
+replace "Port name" with the serial port your arduino device is plugged into (e.g "COM3"), which you can find in Windows Device Manager
 
 * In the line below
 
-```Python
-connection_string = "<IoT Device connection string here>"
+```CSharp
+static string ConnectionString = "<IoT Device connection string>";
 ```
-put your "IoT Device connection string" (captured just above) in the quotes.  Onto the end of your connection string, append ";GatewayHostName=mygateway.local".  This tells our Python script/device to connect to the specified IoTHub in it's connection string, but to do so __**through the specified Edge gateway**__
+
+put your "IoT Device connection string" (captured just above) in the quotes.  Onto the end of your connection string, append ";GatewayHostName=mygateway.local".  This tells our app/IoT Device to connect to the specified IoTHub in it's connection string, but to do so __**through the specified Edge gateway**__
+
+Hit CTRL-S to save Program.cs
 
 Ok, we now have our device ready, so let's get it connected to the Hub
 
@@ -165,28 +156,27 @@ The edge device is now ready for our device to connect.
 
 In VS Code, click on the 'Extensions' tab on the left nav.  Search for an install the "Azure IoT Toolkit" by Microsoft.  Once installed (reload VS Code, if necessary), click back on the folder view and you should see a new section called "IOT HUB DEVICES" (on the left hand side, at the bottom, below all the 'files').  Hover over it and you should see three dots "...".  Click on that and click "Set IoT Hub Connection String".  You should see an Edit box appear for you to enter a connection string.  Go back to notepad where we copied the connection strings earlier, and copy/paste the "IoT Hub level" (the 'iothubowner') connection string from earlier into the VS Code edit box and hit ok.
 
-After a few seconds, a list of IoT Device should appear in that section.  Once it does, find the IoT Device (not the edge device) that is tied to your python script.  Right click on it and select "Start monitoring D2C messages".  This should open an output window in VS Code and show that it is listening for messages.
+After a few seconds, a list of IoT Device should appear in that section.  Once it does, find the IoT Device (not the edge device) that is tied to your "IoT Device" app.  Right click on it and select "Start monitoring D2C messages".  This should open an output window in VS Code and show that it is listening for messages.
 
 ### start the local IoT device
 
-open a new command prompt and CD to the module2 folder.  Run the following command to 'run' our IoT device
+open a new command prompt and CD to the module2/dotnet/readserial folder.  Run the following command to 'run' our IoT device.
+
+To build our app, we need to run the following commands:
 
 ```cmd
-python -u readserial.py
+dotnet restore
+
+dotnet build
 ```
 
-* NOTE:  Some recent changes (remember, it's preview :-) ) accidentally dropped a dependency from the azure-iot-device-client python library installed above, specifically the Visual C++ 2015 runtime library.  Whether you see this error not will depend somewhat on when you installed the library, and whether or not you have Visual Studio (or something else that uses that library) installed on your box.  *IF* you see the error below, you have the problem:
+Once successfully built, we run our app by executing:
 
-    ![busted_python_lib](/images/python_lib_busted.png)
-
-* If you see this error, you need to install the VC++ 2015 runtime distribuation, available [here](https://www.microsoft.com/en-us/download/details.aspx?id=48145).   Click "Download", select "vc_redist.x86.exe", click "Next", and then execute the installer once downloaded.  That should fix the problem.  Try re-running the readserial.py script using the command above.
+```cmd
+dotnet run
+```
 
 Once running successfully, you should see debug output indicating that the device was connected to the "IoT Hub" (in actuality it is connected to the edge device) and see it starting reading and sending humidity and temperature messages.
-
-Your output should look something like the below screenshot.  Note that the lines showing the data being sent are interspersed with confirmation messages that it was successfully sent.  If your output doesn't look like this (and is, for example, only showing the temp/humidity readings and no confirmation messages), then YOUR PYTHON SCRIPT IS NOT CORRECTLY WORKING WITH EDGE and you need to troubleshoot
-
-![python_success](/images/python_success.png)
-
 
 ### Observe D2C messages
 
@@ -203,14 +193,13 @@ Finally, we also want to test making a Direct Method call to our IoT Device.  La
 * in the edit box at the top for the method to call type "ON" (without the quotes) and hit \<enter>
 * in the edit box for the payload, just hit \<enter>>, as we don't need a payload for our method
 
-You should see debug output in the python script that is our IoT Device indicating that a DM call was made, and after a few seconds, the onboard LED on the device should light up.  This is a stand-in for whatever action we would want to take on our real device in the event of an "emergency" high temp alert.
+You should see debug output in the dotnet app that is our IoT Device indicating that a DM call was made, and after a few seconds, the onboard LED on the device should light up.  This is a stand-in for whatever action we would want to take on our real device in the event of an "emergency" high temp alert.
 
 * repeat the process above, sending "OFF" as the command to toggle the LED back off.
 
+in the command prompt runing your dotnet app script, hit \<enter> to stop the app
 
-in the command prompt runing your python script, hit CTRL-C to stop the script.
-
-## Summary 
+## Summary
 
 The output of module is still the raw output of the device (in CSV format).  We've shown that we can connect a device through the edgeHub to IoT Hub in the cloud.  In the next labs, we will add modules to re-format the data as JSON, as well as aggregate the data and identify and take local action on "high temperature" alerts.
 

@@ -178,7 +178,7 @@ In this section, we will get the module created above deployed and view the resu
 
 After a few seconds, the module should be downloaded and deployed to our IoT Edge runtime.  You can confirm this by opening a command prompt and typing "docker ps".  You should see three modules running, the edgeAgent, edgeHub, and our new formatterModule.  You can view the logs of any of them by running "docker logs -f \<module name>" to make sure they are working.
 
-As in the previous module, start the python script that represents our IoT Device to get messages flowing into our formatter module. 
+As in the previous module, start the python script (or .NET Core app, if you did that option) that represents our IoT Device to get messages flowing into our formatter module.
 
 Once that is running, you can use "docker logs -f formatterModule" (or whatever you named your module) to see its logs.  You should see debug output indicating that it is receiving the CSV input, and outputing our new JSON module.
 
@@ -186,8 +186,7 @@ In VS Code, under the "IOT HUB DEVICES" section, like before, you should be able
 
 __**  NOTE:  Now that we have an edge module "in between" our IoT device and IoT Hub in the cloud, the messages no longer appears as though it comes from the original IoT Device, but rather from our Edge device now. This is an important distinction.  This is one of the reasons also, that our Formatter Module snags the original deviceID and embeds it in our message (we could have also put it in the user-defined metadata for the message).  Otherwise, the original device origin would be lost.**__
 
-
-Stop the python script (CTRL-C) while we work on the next module
+Stop the python script (CTRL-C) (or hit \<enter> if you used the .NET Core app) while we work on the next module
 
 Ok - now we have messages flowing from our IoT Device and being translated to JSON and sent to IoT Hub.  However, the messages are flowing at the original high rate of our "dumb" IoTHub device.  Now we are going to add the capability to aggregate the data at the edge, as well as determine when a "high temperature" alert condition occurs (module 4) and take local action (module 5).
 

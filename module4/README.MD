@@ -130,7 +130,7 @@ click 'next' and 'finish' to publish our routes.
 
 ## Test our module
 
-re-start the python script that represents our device.  Use "docker ps" and "docker logs -f \<module name>" to see the various debug messages from the modules
+re-start the python script (or .NET Core app) that represents our device.  Use "docker ps" and "docker logs -f \<module name>" to see the various debug messages from the modules
 
 If it is not still running, restart the D2C message monitoring within VS Code.  You should see the aggregated temperature data come through every 30 seconds or so.  If you hold your finger on the temperature sensor on the Arduinio device enough to make it go above (and then release and let it fall below) 80 degrees, you should also see the Alert messages come through to IoT Hub.
 
