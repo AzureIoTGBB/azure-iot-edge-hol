@@ -32,19 +32,19 @@ NOTE:   there is a bug in the Azure portal that may be fixed by the time you do 
 
 After a few moments, your ASA job will be created.  Click "Go to Resource" to navigate to the portal blade for your job
 
-* click on the "inputs" box and click "Add"
-* give your input the name "inputFromHub" and leave the other settings as default.  Note that source is 'Edge Hub'
+* click on the "inputs" box and click "Add stream input", and click "Edge Hub"
+* give your input the name "inputFromHub" and leave the other settings as default.
 * click Create to create your input
 
 Navigate back to the blade for your ASA job and click on the "outputs" box to add outputs
 
 * Our job is going to leverage two different outputs, one for the aggregated temperature data and one for the alerts
-    * click Add to create a new output
+    * click Add to create a new output and choose "Edge Hub"
     * name your output asaAggregatedTemp for the aggregated temperature data
     * leave the remaining settings at default and click "Create"
     * repeat the above three steps for the alert output (name it asaAlertTemp)
 
-The next step is to specify the query.  Click on the "query" box to open the query editor.  Copy/paste in this query:
+The next step is to specify the query.  In the upper right of the query window, click on the "Edit query" to open the query editor.  Copy/paste in this query:
 
 ```SQL
 -- get aggregated temp/humidity every XX seconds
