@@ -154,7 +154,7 @@ In this section, we will get the module created above deployed and view the resu
 * click on "Set Modules" in the top menu bar.  
 * In the Set Modules blade, click on "Add IoT Edge Module"
     * In the "IoT Edge Modules" dialog, give your module a name (for example:  formattermodule).  Remember the name you used, including the proper 'case' of the letters, as we'll need that when we set the routes in the next step.
-    * in the image URI box, put in the exact same image name you used in the previous step (e.g. <docker hub id>/formattermodule:latest)
+    * in the image URI box, put in the exact same image name you used in the previous step (e.g. \<docker hub id>/formattermodule:latest)
     * leave the other defaults and click "Save"
 * back on the "Set Modules" blade, click "next"
 * on the "specify routes" blade, replace the default with the following:
