@@ -7227,11 +7227,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\serial\\readserial_nodevice\\readserial_nodevice.csproj",
+      "projectUniqueName": "c:\\Users\\stevebus\\Documents\\GitHub\\azure-iot-edge-hol\\module2\\dotnet\\readserial_nodevice\\readserial_nodevice.csproj",
       "projectName": "readserial_nodevice",
-      "projectPath": "C:\\serial\\readserial_nodevice\\readserial_nodevice.csproj",
+      "projectPath": "c:\\Users\\stevebus\\Documents\\GitHub\\azure-iot-edge-hol\\module2\\dotnet\\readserial_nodevice\\readserial_nodevice.csproj",
       "packagesPath": "C:\\Users\\stevebus\\.nuget\\packages\\",
-      "outputPath": "C:\\serial\\readserial_nodevice\\obj\\",
+      "outputPath": "c:\\Users\\stevebus\\Documents\\GitHub\\azure-iot-edge-hol\\module2\\dotnet\\readserial_nodevice\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
