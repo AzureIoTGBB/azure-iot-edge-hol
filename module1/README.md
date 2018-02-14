@@ -68,7 +68,7 @@ First let's add a host file entry for our Edge device. This will let our "IoT De
     ```
 * Confirm you can successfully "ping mygateway.local"
 
-Now let's create the certificated needed
+Now let's create the certificates needed
 
 * Open a PowerShell session __*as an Adminstrator*__ and type the commands bellow:
 
