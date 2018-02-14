@@ -72,7 +72,7 @@ Now let's create the certificates needed
 
 * Open a PowerShell session __*as an Adminstrator*__ and type the commands bellow:
 
->Note: Do this in a plain Powershell window.  it does not work in the PowerShell ISE for some reason
+>Note: Do this in a plain Powershell window.  It does not work in the PowerShell ISE for some reason
 
     mkdir c:\edge
     cd \edge
@@ -82,11 +82,9 @@ Now let's create the certificates needed
     . \azure-iot-sdk-c\tools\CACertificates\ca-certs.ps1
     Test-CACertsPrerequisites
     
-Make sure it returns the result "SUCCESS". If the Test-CACertsprequisites call fails, it means that the local machine already contains Azure IoT test certs (possibly from a previously deployment.
+Make sure it returns the result "SUCCESS". If the Test-CACertsprequisites call fails, it means that the local machine already contains Azure IoT test certs (possibly from a previously deployment). If that happens, you need to follow Step 5 - Cleanup of the instructions [here](https://github.com/Azure/azure-iot-sdk-c/blob/CACertToolEdge/tools/CACertificates/CACertificateOverview.md) before moving on
 
-If that happens, you need to follow Step 5 - Cleanup of the instructions [here](https://github.com/Azure/azure-iot-sdk-c/blob/CACertToolEdge/tools/CACertificates/CACertificateOverview.md) before moving on)
-
->Note: Do not close the powershell session yet. If you do, just reopen it and re run line 4-6
+>Note: Do not close the powershell session yet. If you do, just reopen it and re run lines 4-6
 
 We are now ready to generate the TLS certificates for our Edge device. Make sure you are still in the __c:\edge folder__ in your PowerShell session and run the command bellow to generate our test certificates. In production, you would use a real CA.
 
