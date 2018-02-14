@@ -55,8 +55,7 @@ In order to execute the hands-on labs, there are a number of pre-requisites that
     * for the lab instructions later, create a c:\utils folder and unzip the downloaded OpenSSL zip to c:\utils\ 
     (so you should a folder structure that looks like this->    c:\utils\OpenSSL)
 * [git](https://git-scm.com/downloads/)   ** installation of the default components and default configurations are fine
-* clone the Azure IoT C sdk.  We need this to get the certificate generation scripts.  Also, while Edge is in public preview, we need the 'CACertToolEdge' branch of the SDK.  Run the following command from the root of the **"C" drive**
-    * git clone -b CACertToolEdge http://github.com/azure/azure-iot-sdk-c
+
 * [Python 2.7 for Windows](https://www.python.org/downloads/)  -- __**make sure it's 2.7.x, NOT 3.x.x**__
     * during setup, elect to "add python 2.7 folder to the path"  (see screenshot below -- You will need to SCROLL DOWN to see it)
 

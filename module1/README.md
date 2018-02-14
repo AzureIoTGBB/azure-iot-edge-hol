@@ -70,9 +70,19 @@ First let's add a host file entry for our Edge device. This will let our "IoT De
 
 Now let's create the certificates needed
 
-* Open a PowerShell session __*as an Adminstrator*__ and type the commands bellow:
+* Open a PowerShell session __*as an Adminstrator*__ 
 
->Note: Do this in a plain Powershell window.  It does not work in the PowerShell ISE for some reason
+>Note: Do this in a plain Powershell window.  It does not work in the PowerShell ISE for some reason.
+
+First, we will clone the Azure IoT C sdk.  We need this to get the certificate generation scripts.  Also, while Edge is in public preview, we need the 'CACertToolEdge' branch of the SDK.
+
+After cloning the C sdk, we prepare the PowerShell environment to we can generate the certificates.
+
+Run the following commands from the root of the **"C" drive**
+
+    cd \
+
+    git clone -b CACertToolEdge http://github.com/azure/azure-iot-sdk-c
 
     mkdir c:\edge
     cd \edge
@@ -81,7 +91,7 @@ Now let's create the certificates needed
     $ENV:OPENSSL_CONF="c:\utils\OpenSSL\bin\openssl.cnf"
     . \azure-iot-sdk-c\tools\CACertificates\ca-certs.ps1
     Test-CACertsPrerequisites
-    
+
 Make sure it returns the result "SUCCESS". If the Test-CACertsprequisites call fails, it means that the local machine already contains Azure IoT test certs (possibly from a previously deployment). If that happens, you need to follow Step 5 - Cleanup of the instructions [here](https://github.com/Azure/azure-iot-sdk-c/blob/CACertToolEdge/tools/CACertificates/CACertificateOverview.md) before moving on
 
 >Note: Do not close the powershell session yet. If you do, just reopen it and re run lines 4-6
