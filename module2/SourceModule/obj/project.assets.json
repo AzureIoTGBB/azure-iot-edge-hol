@@ -7635,11 +7635,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\stevebus\\Documents\\GitHub\\azure-iot-edge-hol\\module2\\SourceModule\\SourceModule.csproj",
+      "projectUniqueName": "c:\\azure-iot-edge-hol\\module2\\SourceModule\\SourceModule.csproj",
       "projectName": "SourceModule",
-      "projectPath": "c:\\Users\\stevebus\\Documents\\GitHub\\azure-iot-edge-hol\\module2\\SourceModule\\SourceModule.csproj",
+      "projectPath": "c:\\azure-iot-edge-hol\\module2\\SourceModule\\SourceModule.csproj",
       "packagesPath": "C:\\Users\\stevebus\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\stevebus\\Documents\\GitHub\\azure-iot-edge-hol\\module2\\SourceModule\\obj\\",
+      "outputPath": "c:\\azure-iot-edge-hol\\module2\\SourceModule\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
