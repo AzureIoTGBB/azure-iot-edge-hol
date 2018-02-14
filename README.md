@@ -2,11 +2,7 @@
 
 Created and maintained by the Microsoft Azure IoT Global Black Belts
 
-
-
-# NOTE - this is a work in progress..  It's not anywhere near done yet   :-)
-
-
+>Note: This workshop is based on prerelease software and therefor it's still a work in progress.
 
 ## Overview
 
@@ -42,4 +38,26 @@ For this lab, for simplicity of setup, we are using our Windows 10 desktops (run
 * Arduino Uno R3 “kit”:   [kit](https://www.adafruit.com/product/193)   ~$35
 * DHT22 temp/humidity sensor:  [kit](https://www.adafruit.com/product/385)   ~10
 
-__**Let's get started!!**__
+## Prerequisites
+
+>Note: For the lab exercises, we need an IoT Hub created in an Azure Subscription for which you have administrative access.
+
+In order to execute the hands-on labs, there are a number of pre-requisites that need to be installed and configured.  Unless otherwise noted, the default installation of the items below are fine
+
+>Note: For in-person deliveries by the IoT GBBs, some of this may have been done for you.  Please check with your instructor
+
+* Windows 10 Fall Creators Update (build 16299)
+* [Docker for Windows](https://docs.docker.com/docker-for-windows/install/)   ** the "community edition" is fine.  Make sure you install the STABLE version.  A reboot may be required to enable Hyper-V
+* [Visual Studio Code](https://code.visualstudio.com/)
+* [.NET Core SDK](https://www.microsoft.com/net/core#windowscmd)
+* [Arduino IDE](http://www.arduino.cc/)
+* [Open SSL](https://sourceforge.net/projects/openssl/)
+    * for the lab instructions later, create a c:\utils folder and unzip the downloaded OpenSSL zip to c:\utils\ 
+    (so you should a folder structure that looks like this->    c:\utils\OpenSSL)
+* [git](https://git-scm.com/downloads/)   ** installation of the default components and default configurations are fine
+* clone the Azure IoT C sdk.  We need this to get the certificate generation scripts.  Also, while Edge is in public preview, we need the 'CACertToolEdge' branch of the SDK.  Run the following command from the root of the **"C" drive**
+    * git clone -b CACertToolEdge http://github.com/azure/azure-iot-sdk-c
+* [Python 2.7 for Windows](https://www.python.org/downloads/)  -- __**make sure it's 2.7.x, NOT 3.x.x**__
+    * during setup, elect to "add python 2.7 folder to the path"  (see screenshot below -- You will need to SCROLL DOWN to see it)
+
+![python_install](/images/python_install.png)
