@@ -48,6 +48,9 @@ In order to execute the hands-on labs, there are a number of pre-requisites that
 
 * Windows 10 Fall Creators Update (build 16299)
 * [Docker for Windows](https://docs.docker.com/docker-for-windows/install/)   ** the "community edition" is fine.  Make sure you install the STABLE version.  A reboot may be required to enable Hyper-V
+
+>NOTE:  because of some issues with Window containers, the labs are intended to be run with Linux containers (on a Windows host).  Please ensure that you are running Linux containers.  The best way to tell is to right-click on the "whale" in your notification bar and make sure you see "Switch to Windows containers" in the context menu.  That shows that you are currently running Linux containers.  If not, please make the switch.
+
 * [Visual Studio Code](https://code.visualstudio.com/)
 * [.NET Core SDK](https://www.microsoft.com/net/core#windowscmd)
 * [Arduino IDE](http://www.arduino.cc/)
