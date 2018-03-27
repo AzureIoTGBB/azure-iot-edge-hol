@@ -74,7 +74,7 @@ Now let's create the certificates needed
 
 >Note: Do this in a plain Powershell window.  It does not work in the PowerShell ISE for some reason.
 
-First, we will clone the Azure IoT C sdk.  We need this to get the certificate generation scripts.  Also, while Edge is in public preview, we need the 'CACertToolEdge' branch of the SDK.
+First, we will clone the Azure IoT C sdk.  We need this to get the certificate generation scripts.  Also, while Edge is in public preview, we need the 'modules-preview' branch of the SDK.
 
 After cloning the C sdk, we prepare the PowerShell environment to we can generate the certificates.
 
@@ -82,7 +82,7 @@ Run the following commands from the root of the **"C" drive**
 
     cd \
 
-    git clone -b CACertToolEdge http://github.com/azure/azure-iot-sdk-c
+    git clone -b modules-preview http://github.com/azure/azure-iot-sdk-c
 
     mkdir c:\edge
     cd \edge
