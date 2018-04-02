@@ -32,7 +32,7 @@ Ok, let's get started...
 
 ![ArduinoIDE](/images/m2bArduino6.png)
 
-5. Click the deploy button to load the sketch to the device.  After the sketch has deployed look at your Arduino to validate you have a blinking LED (once per second).
+5. Click the "Upload" button to load the sketch to the device.  After the sketch has deployed look at your Arduino to validate you have a blinking LED (once per second).
 
 ### Assemble device
 
