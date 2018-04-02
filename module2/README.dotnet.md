@@ -191,7 +191,7 @@ Finally, we also want to test making a Direct Method call to our IoT Device.  La
 
 * in VS Code, in the "IOT HUB DEVICES" section, right click on your IoT Device and click "Invoke Direct Method".
 * in the edit box at the top for the method to call type "ON" (without the quotes) and hit \<enter>
-* in the edit box for the payload, just hit \<enter>>, as we don't need a payload for our method
+* in the edit box for the payload, just hit \<enter>, as we don't need a payload for our method
 
 You should see debug output in the dotnet app that is our IoT Device indicating that a DM call was made, and after a few seconds, the onboard LED on the device should light up.  This is a stand-in for whatever action we would want to take on our real device in the event of an "emergency" high temp alert.
 
