@@ -21,7 +21,7 @@ In VS Code, click on the "extensions" tab and search for "Azure IoT Edge".  You 
 We will use VS Code to develop our module.  
 
 * in VS Code, click on File -> Open Folder and navigate to the c:\edge folder we created before
-* hit CTRL and + to open the Integrated Terminal window in VS Code.
+* hit CTRL and + ` to open the Integrated Terminal window in VS Code.
 * We will create the "scaffolding" for our IoT Edge module using the IoT Edge module template provided by the IoT Edge product team.  To install it, in the integrated terminal, run the following command:
 
 ```
