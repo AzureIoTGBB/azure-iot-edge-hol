@@ -12,9 +12,25 @@ We are primarily using C# and .NET Core for this lab because it is the most comp
 
 ## Developing our module
 
-### Install the Azure IoT Edge extention
+### Install the following VS Code Extensions
 
-In VS Code, click on the "extensions" tab and search for "Azure IoT Edge".  You should see an extension provided by Microsoft.  Install it, and afterwards, reload VS Code
+Click on "extensions" and install the following:
+
+#### Azure IoT Edge extention
+
+Search for the "Azure IoT Edge" extension by Microsoft.  Install it.
+
+#### C# for Visual Studio Code 
+
+Search for "C# for Visual Studio Code (powered by OmniSharp)" extension by Microsoft.  Install it.
+
+#### Docker
+
+Search for "Docker" extension by Microsoft.  Install it.
+
+#### Restart
+
+Reload VS Code.
 
 ### Creating the module "skeleton"
 
@@ -29,7 +45,7 @@ dotnet new -i Microsoft.Azure.IoT.Edge.Module
 ```
 * now we are ready to create our project.  in the integrated terminal, run the following command
 ```
-dotnet new aziotedgemodule -n FormatterModule
+dotnet new aziotedgemodule -n FormatterModule -r <docker_user_name>/formattermodule
 ```
 * Open the Program.cs file to view the code.  Review the boiler-plate code to understand what it does.  A few notes:
     * The main funtion retrieves the 'connection string' for the module from an environment variable passed into it's docker container by the edge Agent when it creates the container.  This connection string is for the module to connect to the local edge Hub instance.  Main called "Init" to initiate the connection to the local Hub and set up any callbacks.
@@ -117,33 +133,24 @@ using Newtonsoft.Json;
 
 Now that our module is created, we need to deploy it to our Edge device and get our messages routed through it.
 
-The first step is to create our docker image.  Luckily the VS Code template makes that easy for us by creating the necessary DockerFile to create our image.  Since we are running linux containers on our Windows hosts, we need to build the Linux version of the image.
+### Log into Docker
 
-* In VS Code, expand the Docker folder, and expand the Linux-x64 folder.  
-* Right-click on the DockerFile and click on "Build IoT Edge module Docker image"
-* in the pop-up folder dialog, navigate to the './bin/Debug/netcoreapp2.0/publish' folder under your project and click the "Select folder as EXE_DIR" button
-* in the pop-up text box at the top of VS Code, enter an image name.  You should start it with the name of the docker hub user id you created earlier.  For example:
+The first step is to log into Docker in the Terminal window.
 
-```
-<docker_user_name>/formattermodule:latest
-```
+````
+docker login -u <Docker username> -p <Docker password>
+````
 
-* hit enter to build your image
+### Upload the image to Docker
 
-Once the image is build, we want to upload it to docker so the edge Agent can pull it.   Technically, we don't have to do this, since edge is running on the same box in which we just created the image (i.e. it's already "local"), but it's a good habit to get into since you'll need to do it when Edge isn't running local to your development box
+In VS Code explorer:
 
-the first step is to log into the docker hub.  Docker hub will let you download images anonymously, but you need to be authenticated to upload images.  
+* Right-click the module.json file and click Build and Push IoT Edge module Docker image. 
+* In the pop-up dropdown box at the top of the VS Code window, select your container platform, either amd64 for Linux container or windows-amd64 for Windows container. 
 
-* From the Integrated Terminal in VS Code, enter the following command:
+VS Code then builds your code, containerize the ````FormatterModule.dll```` and push it to the container registry you specified.
 
-```
-docker login -u <username> -p <password>
-```
-
-where "username" and "password" are the credentials you used earlier when you created your docker hub account.
-
-* Once succesfully authenticated to docker, in VS Code, click View->Command Pallete and search for the Edge: Push IoT Edge module Docker Image command.
-* In the pop-up text box at the top of VS Code, enter the same image name you used above
+Our module is now in Docker with the tag ````0.0.1-windows-amd64````
 
 
 ## Deploy Edge module
