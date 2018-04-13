@@ -145,7 +145,7 @@ docker login -u <Docker username> -p <Docker password>
 
 In VS Code explorer:
 
-* Right-click the module.json file and click Build and Push IoT Edge module Docker image. 
+* Right-click the module.json file and click "Build and Push IoT Edge module Docker Image". 
 * In the pop-up dropdown box at the top of the VS Code window, select your container platform, either amd64 for Linux container or windows-amd64 for Windows container. 
 
 VS Code then builds your code, containerize the ````FormatterModule.dll```` and push it to the container registry you specified.
