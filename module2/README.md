@@ -6,6 +6,21 @@ Created and maintained by the Microsoft Azure IoT Global Black Belts
 
 This version of module2 uses python for our "IoT Device".  If you have trouble with it, or simply prefer .NET/C#, there is an alternate ".NET Core" implementation [here](./README.dotnet.md)
 
+
+
+# PLEASE NOTE
+
+Currently, the integration between our python device client and Azure IoT Edge is temporarily broken due to invalid TLS cert validation (hey, it's preview, right?).   Please use the .NET Core IoT "leaf" client available [here](./README.dotnet.md) instead until further notice.
+
+-----------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
 ## Introduction
 
 For this step of the lab, we are going to create our "IoT Device".  For the labs, we wanted to leverage a physical device to make the scenario slightly more realistic (and fun!).
