@@ -109,7 +109,7 @@ Now we need to generate certs for our specific gateway. In Powershell run:
 
 This will generate the gateway specific certificates (MyGateway.*). When prompted to enter a password during the signing process, just enter "1234".
 
->Note: If anything goes wrong during this process and you need to repeat it, you'll likely need to clean up the existing certs before generating new ones.  To do so, follow Step 5 - Cleanup, of the process outlined [here](https://github.com/Azure/azure-iot-sdk-c/blob/CACertToolEdge/tools/CACertificates/CACertificateOverview.md)
+>Note: If anything goes wrong during this process and you need to repeat it, you'll likely need to clean up the existing certs before generating new ones.  To do so, follow Step 5 - Cleanup, of the process outlined [here](https://github.com/Azure/azure-iot-sdk-c/blob/modules-preview/tools/CACertificates/CACertificateOverview.md)
 
 ## Install IoT Edge configuration tool
 
