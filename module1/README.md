@@ -92,7 +92,7 @@ Run the following commands from the root of the **"C" drive**
     . \azure-iot-sdk-c\tools\CACertificates\ca-certs.ps1
     Test-CACertsPrerequisites
 
-Make sure it returns the result "SUCCESS". If the Test-CACertsprequisites call fails, it means that the local machine already contains Azure IoT test certs (possibly from a previously deployment). If that happens, you need to follow Step 5 - Cleanup of the instructions [here](https://github.com/Azure/azure-iot-sdk-c/blob/CACertToolEdge/tools/CACertificates/CACertificateOverview.md) before moving on
+Make sure it returns the result "SUCCESS". If the Test-CACertsprequisites call fails, it means that the local machine already contains Azure IoT test certs (possibly from a previously deployment). If that happens, you need to follow Step 5 - Cleanup of the instructions [here](https://github.com/Azure/azure-iot-sdk-c/blob/modules-preview/tools/CACertificates/CACertificateOverview.md) before moving on
 
 >Note: Do not close the powershell session yet. If you do, just reopen it and re run lines 4-6
 
