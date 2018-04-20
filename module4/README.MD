@@ -110,6 +110,11 @@ Now we are ready to deploy our ASA job to our Edge device.
 * select "Import Azure Stream Analytics IoT Edge Module"
 * select your subscription, and the ASA job you created earlier
 * under Storage account, select your subscription and the storage account you created earlier
+* click Save
+
+> NOTE:  There is a temporary certificate validation issue with IoT Edge.  As such, the default ASA module is broken.  We have a temporary work around using a specially built-version of the ASA module.  To leverage this module, before continuing, follow the steps documented [here](ASAWorkaround.md).
+
+
 * click "next" to configure our routes
 * on the 'specify routes' screen, enter the following routes
 

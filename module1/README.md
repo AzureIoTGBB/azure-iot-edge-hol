@@ -84,6 +84,17 @@ Run the following commands from the root of the **"C" drive**
 
     git clone -b modules-preview http://github.com/azure/azure-iot-sdk-c
 
+> Note - there is a temporary bug in the script that we will use to generate our TLS certificates for IoT Edge.  To work around it, perform the following steps
+
+    in notepad, open \azure-iot-sdk-c\tools\CACertificates\ca-certs.ps1
+    search down until you find the line:
+        "function New-CACertsEdgeDevice([string]$deviceName, [string]$signingCertSubject=($_intermediateCertSubject -f "1"))"
+    and replace it with the following (without the quotes)
+        "function New-CACertsEdgeDevice([string]$deviceName, [string]$signingCertSubject=("CN=$_intermediateCertCommonName" -f "1"))"
+    save the ca-certs.ps1 file and close
+
+Now we are ready to generate our TLS certificates for IoT Edge
+
     mkdir c:\edge
     cd \edge
     Set-ExecutionPolicy Unrestricted

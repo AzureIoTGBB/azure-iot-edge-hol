@@ -14,7 +14,7 @@ We are primarily using C# and .NET Core for this lab because it is the most comp
 
 ### Install the following VS Code Extensions
 
-Click on "extensions" and install the following:
+Click on the "extensions" tab in VS Code and install the following:
 
 #### Azure IoT Edge extention
 
@@ -43,7 +43,7 @@ We will use VS Code to develop our module.
 ```
 dotnet new -i Microsoft.Azure.IoT.Edge.Module
 ```
-* now we are ready to create our project.  in the integrated terminal, run the following command
+* now we are ready to create our project.  in the integrated terminal, run the following command  (where \<docker_user_name> is the user name for Docker Hub that you created earlier)
 ```
 dotnet new aziotedgemodule -n FormatterModule -r <docker_user_name>/formattermodule
 ```
@@ -66,57 +66,72 @@ using Newtonsoft.Json;
 * above the "Program" class, add the C# class that will represent our message we want to publish to the Hub
 
 ```CSharp
-    class Telemetry
-    {
-        public string deviceID;
-        public float temperature;
-        public float humidity;
-    }
+class Telemetry
+{
+    public string deviceID;
+    public float temperature;
+    public float humidity;
+}
+```
+
+> Note:  there is a temporary bug in the certificate validation code for IoT Edge.  The below code change is necessary to work around that bug
+
+* Temporarily we will be bypassing certicate validation in our module.  So do so, locate this line of code at the top of the "Main" function
+
+```CSharp
+bool bypassCertVerification = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+```
+
+and replace it with
+
+```CSharp
+bool bypassCertVerification = true;
 ```
 
 * the balance of our work will be in the PipeMessage function.  the top part of the function, which gets the "Device Client" instance that is stored in Context and makes sure it's valid, and that opens the message and gets it's content as a string, is boiler-plate and is fine for our purposes.  The work we will be doing is inside the "if" block below (which checks to make sure we don't have an empty message):
 
 ```CSharp
-    if (!string.IsNullOrEmpty(messageString))
-    {
-    }
+if (!string.IsNullOrEmpty(messageString))
+{
+    .....
+}
 ```
 
-* replace the code within the if block above, with the below code
+* replace the code within the ````if```` block above, with the below code
 
 ```CSharp
-                // if our message isn't 11 characters long (xx.xx,yy.yy) or a comma in the 6th position
-                // then it's not a message we are interested in.
-                if((!(messageString.Length == 11)) || !(messageString.Substring(5,1) == ","))
-                {
-                    Console.WriteLine("Not a message that interests this module.");
-                    return MessageResponse.Completed;
-                }
+// if our message isn't 11 characters long (xx.xx,yy.yy) or a comma in the 6th position
+// then it's not a message we are interested in.
+if((!(messageString.Length == 11)) || !(messageString.Substring(5,1) == ","))
+{
+    Console.WriteLine("Not a message that interests this module.");
+    return MessageResponse.Completed;
+}
 
-                // split the CSV message into its two parts
-                // humidity is first, temp second
-                string[] parts = messageString.Split(",");
+// split the CSV message into its two parts
+// humidity is first, temp second
+string[] parts = messageString.Split(",");
 
-                // create and populate our new message content
-                Telemetry t = new Telemetry();
-                t.deviceID = message.ConnectionDeviceId;
-                t.humidity = float.Parse(parts[0]);
-                t.temperature = float.Parse(parts[1]);
+// create and populate our new message content
+Telemetry t = new Telemetry();
+t.deviceID = message.ConnectionDeviceId;
+t.humidity = float.Parse(parts[0]);
+t.temperature = float.Parse(parts[1]);
 
-                // serialize to a string
-                string newMessage = JsonConvert.SerializeObject(t);
+// serialize to a string
+string newMessage = JsonConvert.SerializeObject(t);
 
-                // create a new IoT Message object and copy
-                // any properties from the original message
-                var pipeMessage = new Message(Encoding.ASCII.GetBytes(newMessage));
-                foreach (var prop in message.Properties)
-                {
-                    pipeMessage.Properties.Add(prop.Key, prop.Value);
-                }
+// create a new IoT Message object and copy
+// any properties from the original message
+var pipeMessage = new Message(Encoding.ASCII.GetBytes(newMessage));
+foreach (var prop in message.Properties)
+{
+    pipeMessage.Properties.Add(prop.Key, prop.Value);
+}
 
-                // send the data to the edge Hub on a named output (for routing)
-                await deviceClient.SendEventAsync("output1", pipeMessage);
-                Console.WriteLine($"Converted message sent({counter}): {newMessage}");
+// send the data to the edge Hub on a named output (for routing)
+await deviceClient.SendEventAsync("output1", pipeMessage);
+Console.WriteLine($"Converted message sent({counter}): {newMessage}");
 ```
 
 * the code above does the following things
@@ -127,7 +142,7 @@ using Newtonsoft.Json;
     * send the message back out to the hub on named output
     * marks the original message as "complete" so that the Hub knows we successfully processed it and it does not need to be re-sent
 
-* in VS Code, on the code tree, right click on the FormatterModule.csproj file and click "Build IoT Edge Module".  This task builds the module, and then copies the executable and it's dependencies into a folder from which we can build the docker image to deploy it in the next step.
+* Save your changes to the Program.cs file
 
 ## Deploying our module
 
@@ -146,11 +161,11 @@ docker login -u <Docker username> -p <Docker password>
 In VS Code explorer:
 
 * Right-click the module.json file and click "Build and Push IoT Edge module Docker Image". 
-* In the pop-up dropdown box at the top of the VS Code window, select amd64 (Linux container). 
+* In the pop-up dropdown box at the top of the VS Code window, select 'amd64' (Linux container). 
 
 VS Code then builds your code, containerize the ````FormatterModule.dll```` and push it to the container registry you specified.
 
-Our module is now in Docker with the tag ````0.0.1-windows-amd64````
+Our module is now in Docker with the tag ````0.0.1-amd64````
 
 
 ## Deploy Edge module

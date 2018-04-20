@@ -109,7 +109,7 @@ For our device, we will leverage a python script that emulates our IoT Device.  
 1. Because we are in public preview with IoT Edge, we need to leverage a preview version of the python SDK.  To install that preview version, open an administrator command prompt and run this command
 
 ```
-pip install azure-iothub-device-client==1.2.0.0b0
+pip install azure-iothub-device-client==1.3.0.0b0
 ```
 
 2. Our script leverages the pyserial library for reading from the serial port, so we need to install it.  From the command prompt, run
