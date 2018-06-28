@@ -2,7 +2,7 @@
 
 Created and maintained by the Microsoft Azure IoT Global Black Belts
 
->Note: This workshop is based on prerelease software and therefor it's still a work in progress.
+# NOTE - We are in the process of updating the labs to leverage the new GA bits and process for IoT Edge... We hope to have the updates soon.  Currently, consider these labs "closed for construction"  :-)
 
 ## Overview
 
